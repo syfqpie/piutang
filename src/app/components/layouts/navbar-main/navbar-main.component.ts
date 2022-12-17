@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'piu-navbar-main',
+	selector: 'pkt-navbar-main',
 	template: `
     <nav
 		class="bg-white border-gray-200 px-2

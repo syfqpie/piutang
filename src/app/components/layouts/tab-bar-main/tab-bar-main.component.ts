@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TabBar } from './tab-bar.types';
 
 @Component({
-	selector: 'piu-tab-bar-main',
+	selector: 'pkt-tab-bar-main',
 	template: `
     <section
 		id="bottom-navigation"
