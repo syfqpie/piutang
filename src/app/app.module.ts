@@ -6,10 +6,14 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LayoutMainComponent } from './layouts/layout-main/layout-main.component';
+import { NavbarMainComponent } from './components/layouts/navbar-main/navbar-main.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LayoutMainComponent,
+    NavbarMainComponent
   ],
   imports: [
     BrowserModule,
