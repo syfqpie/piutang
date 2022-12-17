@@ -8,12 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutMainComponent } from './layouts/layout-main/layout-main.component';
 import { NavbarMainComponent } from './components/layouts/navbar-main/navbar-main.component';
+import { TabBarMainComponent } from './components/layouts/tab-bar-main/tab-bar-main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutMainComponent,
-    NavbarMainComponent
+    NavbarMainComponent,
+    TabBarMainComponent
   ],
   imports: [
     BrowserModule,

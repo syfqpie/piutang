@@ -1,24 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'pui-layout-main',
-  template: `
-    <div class="h-screen w-screen">
-      <piu-navbar-main></piu-navbar-main>
+	selector: 'pui-layout-main',
+	template: `
+    <div class="min-h-screen w-screen flex flex-col">
+		<piu-navbar-main></piu-navbar-main>
 
-      <div class="container px-2 md:px-40 py-2.5 text-white">
-        <router-outlet></router-outlet>
-      </div>
+		<div class="px-2 md:px-40 py-2.5 dark:text-white overflow-scroll">
+			<router-outlet></router-outlet>
+			<piu-tab-bar-main></piu-tab-bar-main>
+		</div>
     </div>
   `,
-  styles: [
-  ]
+	styles: [
+	]
 })
 export class LayoutMainComponent implements OnInit {
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
 }

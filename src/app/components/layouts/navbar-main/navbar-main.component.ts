@@ -6,11 +6,11 @@ import { Component, OnInit } from '@angular/core';
     <nav
 		class="bg-white border-gray-200 px-2
 		md:px-40 py-2.5 rounded dark:bg-gray-900
-		border-b border-b-white">
+		shadow-lg">
 		<div
 			class="container flex flex-wrap
 			items-center justify-between mx-auto">
-			<div class="flex items-center">
+			<div class="flex items-start">
 				<button
 					type="button"
 					class="px-3 py-2 mr-3 rounded-lg border font-medium text-xs 
@@ -31,7 +31,7 @@ import { Component, OnInit } from '@angular/core';
 				</h3>
 			</div>
 
-			<div class="flex md:order-2">
+			<div class="flex items-end">
 				<button
 					type="button"
 					class="px-3 py-2 mr-3 md:mr-0 rounded-lg font-medium text-xs
