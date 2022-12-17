@@ -1,4 +1,4 @@
-# Piutang - Hutang (debt) manager 💸
+# Poket - Hutang (debt) manager 💸
 
 ## Project Setup
 
