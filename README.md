@@ -1,4 +1,4 @@
-# Piutang - Hutang (debt) management 💸
+# Piutang - Hutang (debt) manager 💸
 
 ## Project Setup
 
