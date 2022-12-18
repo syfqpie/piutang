@@ -1,29 +1,92 @@
-<div class="pt-4 pb-14 max-w-xl mx-auto">
+<div class="pt-4 pb-14 px-2 md:px-0 max-w-xl mx-auto">
     <div
-        class="p-6 max-w-full mx-auto bg-gray-800 mb-4
-        shadow-xl rounded-xl flex items-center space-x-4 mt-14">
-        <div class="shrink-0">
-            <img class="h-12 w-12"
-                src="assets/img/avatars/ninja-gray-500.png">
-        </div>
-        
-        <div>
-            <div class="text-lg font-medium text-gray-200">Unknown</div>
-            <p class="text-gray-500 line-clamp-1">For unknown reasons</p>
-        </div>
-        <div class="shrink-0 w-32 text-end">
-            <h3 class="text-xl font-semibold text-emerald-500">
-                RM--
+        class="p-6 max-w-full mx-auto bg-gray-800 mb-4 shadow-xl
+        rounded-xl flex flex-row items-center">
+        <div class="basis-8/12">
+            <h3 class="text-3xl font-semibold text-emerald-500">
+                <span *ngIf="createForm.value.amount; else amountPlaceholder">
+                    {{
+                        createForm.value.amount | currency:currCode:currDisplay:currDigitsInfo
+                    }}
+                </span>
+                <ng-template #amountPlaceholder>
+                    <span>
+                        RM--
+                    </span>
+                </ng-template>
             </h3>
 
-            <span class="text-gray-800 text-xs font-medium inline-flex items-end dark:text-gray-500">
-                <i class="fa-regular fa-clock mr-2 my-auto"></i>
-                3 days ago
+            <p class="text-gray-500 text-sm line-clamp-1 mb-2">
+                <span *ngIf="createForm.value.notes; else notesPlaceholder">
+                    {{ createForm.value.notes }}
+                </span>
+                <ng-template #notesPlaceholder>
+                    <span>
+                        For unknown reasons
+                    </span>
+                </ng-template>
+            </p>
+
+            <span
+                class="bg-gray-100 text-gray-800 text-xs
+                font-semibold mr-2 px-2.5 py-0.5 rounded
+                dark:bg-gray-700 dark:text-gray-300">
+                {{ 
+                    createForm.value.type === DebtType.BORROW ?
+                    'Borrow' :
+                    'Lend'
+                }}
             </span>
+        </div>
+
+        <div class="basis-4/12">
+            <div class="flex items-center justify-center space-x-3">
+                <div class="shrink-0">
+                    <img class="h-9 w-9"
+                        src="assets/img/avatars/ninja-gray-500.png">
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-200 text-ellipsis">
+                        Ahmad
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center my-2">
+                <div>
+                    <i
+                        class="fa-solid fa-turn-down rotate-180 fa-lg
+                        transition duration-150"
+                        [ngClass]="{
+                            'text-emerald-500': createForm.value.type === DebtType.BORROW,
+                            'text-gray-500': createForm.value.type === DebtType.LEND
+                        }"></i>
+                    <i
+                        class="fa-solid fa-turn-down fa-lg
+                        transition duration-150"
+                        [ngClass]="{
+                            'text-emerald-500': createForm.value.type === DebtType.LEND,
+                            'text-gray-500': createForm.value.type === DebtType.BORROW
+                        }"></i>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center space-x-3">
+                <div class="shrink-0">
+                    <img class="h-9 w-9"
+                        src="assets/img/avatars/astronaut-gray-500.png">
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-200 text-ellipsis">
+                        Unknown
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div
+    <form
+        [formGroup]="createForm"
         class="p-6 max-w-full mx-auto bg-gray-800 mb-4
         shadow-xl rounded-xl flex flex-col items-center space-x-0">
         <div class="mb-5 w-full">
@@ -31,96 +94,184 @@
                 class="block mb-2 text-sm font-medium
                 text-gray-900 dark:text-white">
                 Entry type
+                <span
+                    [ngClass]="{
+                        'text-red-600 dark:text-red-500':
+                            createForm.controls['type'].errors &&
+                            (createForm.controls['type'].dirty ||
+                            createForm.controls['type'].touched)
+                    }">*</span>
             </label>
             
-            <div class="flex mb-2">
-                <div class="flex items-center h-5">
-                    <input
-                        id="helper-radio"
-                        aria-describedby="helper-radio-text"
-                        type="radio"
-                        value=""
-                        class="w-4 h-4 accent-emerald-700 bg-gray-100 border
-                        border-gray-300 focust:outline focus:outline-2
-                        focus:outline-emerald-300 dark:focus:outline-emerald-500
-                        dark:focus:border-emerald-500 dark:hover:bg-emerald-700
-                        dark:bg-gray-700 dark:border-gray-600">
+            <div class="grid grid-cols-2 gap-2">
+                <div class="flex">
+                    <div class="flex items-center h-5">
+                        <input
+                            type="radio"
+                            value="{{ DebtType.LEND }}"
+                            formControlName="type"
+                            class="w-4 h-4 accent-emerald-700 bg-gray-100 border
+                            border-gray-300 focust:outline focus:outline-2
+                            focus:outline-emerald-300 dark:focus:outline-emerald-500
+                            dark:focus:border-emerald-500 dark:hover:bg-emerald-700
+                            dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+    
+                    <div class="ml-2 text-sm">
+                        <label
+                            for="helper-radio"
+                            class="font-medium text-gray-900
+                            dark:text-gray-300">
+                            Lend
+                        </label>
+                        <p
+                            id="helper-radio-text"
+                            class="text-xs font-normal text-gray-500
+                            dark:text-gray-300">
+                            You lend your money to someone
+                        </p>
+                    </div>
                 </div>
-
-                <div class="ml-2 text-sm">
-                    <label
-                        for="helper-radio"
-                        class="font-medium text-gray-900
-                        dark:text-gray-300">
-                        Lend
-                    </label>
-                    <p
-                        id="helper-radio-text"
-                        class="text-xs font-normal text-gray-500
-                        dark:text-gray-300">
-                        You lend your money to someone
-                    </p>
-                </div>
-            </div>
-
-            <div class="flex">
-                <div class="flex items-center h-5">
-                    <input
-                        id="helper-radio"
-                        aria-describedby="helper-radio-text"
-                        type="radio"
-                        value=""
-                        class="w-4 h-4 accent-emerald-700 bg-gray-100 border
-                        border-gray-300 focust:outline focus:outline-2
-                        focus:outline-emerald-300 dark:focus:outline-emerald-500
-                        dark:focus:border-emerald-500 dark:hover:bg-emerald-700
-                        dark:bg-gray-700 dark:border-gray-600">
-                </div>
-
-                <div class="ml-2 text-sm">
-                    <label
-                        for="helper-radio"
-                        class="font-medium text-gray-900
-                        dark:text-gray-300">
-                        Borrow
-                    </label>
-                    <p
-                        id="helper-radio-text"
-                        class="text-xs font-normal text-gray-500
-                        dark:text-gray-300">
-                        You borrow money from someone
-                    </p>
+    
+                <div class="flex">
+                    <div class="flex items-center h-5">
+                        <input
+                            type="radio"
+                            value="{{ DebtType.BORROW }}"
+                            formControlName="type"
+                            class="w-4 h-4 accent-emerald-700 bg-gray-100 border
+                            border-gray-300 focust:outline focus:outline-2
+                            focus:outline-emerald-300 dark:focus:outline-emerald-500
+                            dark:focus:border-emerald-500 dark:hover:bg-emerald-700
+                            dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+    
+                    <div class="ml-2 text-sm">
+                        <label
+                            for="helper-radio"
+                            class="font-medium text-gray-900
+                            dark:text-gray-300">
+                            Borrow
+                        </label>
+                        <p
+                            id="helper-radio-text"
+                            class="text-xs font-normal text-gray-500
+                            dark:text-gray-300">
+                            You borrow money from someone
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-        
 
+        <div class="mb-5 w-full">
+        </div>
+        
         <div class="mb-5 w-full">
             <label
                 class="block mb-2 text-sm font-medium
                 text-gray-900 dark:text-white">
                 How much?
+                <span
+                    [ngClass]="{
+                        'text-red-600 dark:text-red-500':
+                            createForm.controls['amount'].errors &&
+                            (createForm.controls['amount'].dirty ||
+                            createForm.controls['amount'].touched)
+                    }">*</span>
             </label>
-            <div class="flex">
+            <div
+                class="flex group focus-within:outline
+                rounded-lg border border-gray-300 bg-gray-200
+                focus-within:outline-2 focus-within:!outline-emerald-500
+                dark:bg-gray-700 dark:border-gray-600
+                dark:focus-within:!outline-emerald-800
+                dark:focus-within:!border-emerald-500
+                transition-colors duration-200">
                 <span
                     class="inline-flex items-center px-2.5
                     text-sm text-gray-900 bg-gray-200
-                    rounded-l-lg border border-r-0 border-gray-300
-                    dark:bg-gray-600 dark:text-gray-400
-                    dark:border-gray-600">
+                    rounded-l-lg border-none outline-none
+                    dark:bg-gray-600 dark:text-gray-400">
                     RM
-                </span>                
+                </span>
                 <input
                     type="number"
+                    formControlName="amount"
                     class="block w-full p-2.5 rounded-lg rounded-l-none sm:text-sm
-                    border bg-gray-50 border-gray-300 text-gray-900
-                    focus:outline focus:outline-2 focus:outline-emerald-500
-                    dark:bg-gray-700 dark:border-gray-600 
-                    dark:placeholder-gray-400 dark:text-white
-                    dark:focus:outline-emerald-800
-                    dark:focus:border-emerald-500
-                    disabled:cursor-not-allowed"
+                    border-none outline-none bg-gray-50 text-gray-900      
+                    dark:bg-gray-700 dark:text-white
+                    dark:placeholder-gray-400"
                     placeholder="Eg: 100.00">
+            </div>
+
+            <ng-template
+                [ngIf]="createForm.controls['amount'].errors &&
+                (createForm.controls['amount'].dirty ||
+                createForm.controls['amount'].touched)">
+                <ng-container *ngFor="let message of formMessages['amount']">
+                    <ng-template
+                        [ngIf]="createForm.controls['amount'].hasError(message.type) &&
+                        (createForm.controls['amount'].dirty ||
+                        createForm.controls['amount'].touched)">
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                            <span class="font-medium">Oops!</span>
+                            {{ message.message }}
+                        </p>
+                    </ng-template>
+                </ng-container>
+            </ng-template>
+        </div>
+
+        <div class="mb-5 w-full">
+            <pkt-mini-calendar-picker
+                [isShowCalendar]="isShowCalendar"
+                (onToggle)="toggleCalendar()"
+                (onSelect)="onSelectDue($event)"
+                [onReset]="onResetEvent">
+            </pkt-mini-calendar-picker>
+
+            <label
+                class="block mb-2 text-sm font-medium
+                text-gray-900 dark:text-white">
+                Due at
+            </label>
+
+            <div
+                class="flex group focus-within:outline
+                rounded-lg border border-gray-300 bg-gray-200
+                focus-within:outline-2 focus-within:!outline-emerald-500
+                dark:bg-gray-700 dark:border-gray-600
+                dark:focus-within:!outline-emerald-800
+                dark:focus-within:!border-emerald-500
+                transition-colors duration-200">
+                <input
+                    type="type"
+                    class="block w-full p-2.5 rounded-lg rounded-r-none sm:text-sm
+                    border-none outline-none bg-gray-50  text-gray-900
+                    dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white 
+                    disabled:cursor-not-allowed"
+                    value="{{ createForm.value['dueAt'] | date:'EEEE, d MMMM y' }}"
+                    (click)="toggleCalendar()">
+                <button
+                    class="inline-flex items-center px-2.5
+                    text-sm text-gray-900 bg-gray-200
+                    border-none outline-none
+                    dark:bg-gray-700 dark:text-gray-400
+                    dark:border-gray-600 dark:focus:text-emerald-500"
+                    (click)="onResetDue()">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button> 
+
+                <button
+                    class="inline-flex items-center px-2.5
+                    text-sm text-gray-900 bg-gray-200 rounded-lg
+                    rounded-l-none border-none outline-none
+                    dark:bg-gray-600 dark:text-gray-400
+                    dark:focus:text-emerald-500"
+                    (click)="toggleCalendar()">
+                    <i class="fa-solid fa-calendar-day"></i>
+                </button>  
             </div>
         </div>
 
@@ -129,8 +280,16 @@
                 class="block mb-2 text-sm font-medium
                 text-gray-900 dark:text-white">
                 Notes
+                <span
+                    [ngClass]="{
+                        'text-red-600 dark:text-red-500':
+                            createForm.controls['notes'].errors &&
+                            (createForm.controls['notes'].dirty ||
+                            createForm.controls['notes'].touched)
+                    }">*</span>
             </label>
             <textarea
+                formControlName="notes"
                 class="block w-full p-2.5 rounded-lg sm:text-sm
                 border bg-gray-50 border-gray-300 text-gray-900
                 focus:outline focus:outline-2 focus:outline-emerald-500
@@ -138,9 +297,27 @@
                 dark:placeholder-gray-400 dark:text-white
                 dark:focus:outline-emerald-800
                 dark:focus:border-emerald-500
-                disabled:cursor-not-allowed"
-                placeholder="Eg: 100.00"
-                rows="5"></textarea>
+                disabled:cursor-not-allowed
+                transition-colors duration-200"
+                placeholder="Eg: Roti canai"
+                rows="2"></textarea>
+            
+            <ng-template
+                [ngIf]="createForm.controls['notes'].errors &&
+                (createForm.controls['notes'].dirty ||
+                createForm.controls['notes'].touched)">
+                <ng-container *ngFor="let message of formMessages['notes']">
+                    <ng-template
+                        [ngIf]="createForm.controls['notes'].hasError(message.type) &&
+                        (createForm.controls['notes'].dirty ||
+                        createForm.controls['notes'].touched)">
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                            <span class="font-medium">Oops!</span>
+                            {{ message.message }}
+                        </p>
+                    </ng-template>
+                </ng-container>
+            </ng-template>
         </div>
 
         <div class="mb-0 w-full">
@@ -151,9 +328,10 @@
                 focus:outline focus:outline-2 focus:outline-emerald-300
                 dark:bg-emerald-600 dark:hover:bg-emerald-700 border
                 dark:focus:border-emerald-500 dark:border-gray-600 
-                dark:focus:outline-emerald-500 disabled:cursor-not-allowed">
+                dark:focus:outline-emerald-500 disabled:cursor-not-allowed"
+                (click)="onSubmit()">
                 Save
             </button>
         </div>
-    </div>
+    </form>
 </div>
