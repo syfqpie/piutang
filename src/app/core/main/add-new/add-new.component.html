@@ -30,7 +30,8 @@
             <span
                 class="bg-gray-100 text-gray-800 text-xs
                 font-semibold mr-2 px-2.5 py-0.5 rounded
-                dark:bg-gray-700 dark:text-gray-300">
+                dark:bg-gray-700 dark:text-gray-300
+                transition duration-200">
                 {{ 
                     createForm.value.type === DebtType.BORROW ?
                     'Borrow' :
@@ -56,14 +57,14 @@
                 <div>
                     <i
                         class="fa-solid fa-turn-down rotate-180 fa-lg
-                        transition duration-150"
+                        transition duration-200"
                         [ngClass]="{
                             'text-emerald-500': createForm.value.type === DebtType.BORROW,
                             'text-gray-500': createForm.value.type === DebtType.LEND
                         }"></i>
                     <i
                         class="fa-solid fa-turn-down fa-lg
-                        transition duration-150"
+                        transition duration-200"
                         [ngClass]="{
                             'text-emerald-500': createForm.value.type === DebtType.LEND,
                             'text-gray-500': createForm.value.type === DebtType.BORROW
@@ -102,65 +103,67 @@
                             createForm.controls['type'].touched)
                     }">*</span>
             </label>
-            
+
             <div class="grid grid-cols-2 gap-2">
-                <div class="flex">
-                    <div class="flex items-center h-5">
-                        <input
-                            type="radio"
-                            value="{{ DebtType.LEND }}"
-                            formControlName="type"
-                            class="w-4 h-4 accent-emerald-700 bg-gray-100 border
-                            border-gray-300 focust:outline focus:outline-2
-                            focus:outline-emerald-300 dark:focus:outline-emerald-500
-                            dark:focus:border-emerald-500 dark:hover:bg-emerald-700
-                            dark:bg-gray-700 dark:border-gray-600">
+                <button
+                    class="flex flex-col space-x-3 items-start border
+                    rounded-lg shadow-md md:flex-row md:max-w-xl p-4  text-start
+                    cursor-pointer bg-white border-gray-300 hover:bg-gray-100
+                    focus:outline focus:outline-2 focus:outline-emerald-500
+                    dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
+                    dark:focus:outline-emerald-800 dark:focus:border-emerald-500
+                    transition-colors duration-200"
+                    [ngClass]="{
+                        'dark:!border-emerald-500': createForm.value.type === DebtType.LEND
+                    }"
+                    (click)="onSelectType(DebtType.LEND)">
+                    <div class="text-center items-start">
+                        <i
+                            class="fa-solid fa-circle-check transition-colors duration-200"
+                            [ngClass]="{
+                                'text-gray-700': createForm.value.type !== DebtType.LEND,
+                                'text-emerald-500': createForm.value.type === DebtType.LEND
+                            }"></i>
                     </div>
-    
-                    <div class="ml-2 text-sm">
-                        <label
-                            for="helper-radio"
-                            class="font-medium text-gray-900
-                            dark:text-gray-300">
+                    <div class="flex flex-col leading-normal">
+                        <h5 class="mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white">
                             Lend
-                        </label>
-                        <p
-                            id="helper-radio-text"
-                            class="text-xs font-normal text-gray-500
-                            dark:text-gray-300">
+                        </h5>
+                        <p class="text-sm font-normal text-gray-700 dark:text-gray-500">
                             You lend your money to someone
                         </p>
                     </div>
-                </div>
+                </button>
     
-                <div class="flex">
-                    <div class="flex items-center h-5">
-                        <input
-                            type="radio"
-                            value="{{ DebtType.BORROW }}"
-                            formControlName="type"
-                            class="w-4 h-4 accent-emerald-700 bg-gray-100 border
-                            border-gray-300 focust:outline focus:outline-2
-                            focus:outline-emerald-300 dark:focus:outline-emerald-500
-                            dark:focus:border-emerald-500 dark:hover:bg-emerald-700
-                            dark:bg-gray-700 dark:border-gray-600">
+                <button
+                    class="flex flex-col space-x-3 items-start border
+                    rounded-lg shadow-md md:flex-row md:max-w-xl p-4  text-start
+                    cursor-pointer bg-white border-gray-300 hover:bg-gray-100
+                    focus:outline focus:outline-2 focus:outline-emerald-500
+                    dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
+                    dark:focus:outline-emerald-800 dark:focus:border-emerald-500
+                    transition-colors duration-200"
+                    [ngClass]="{
+                        'dark:!border-emerald-500': createForm.value.type === DebtType.BORROW
+                    }"
+                    (click)="onSelectType(DebtType.BORROW)">
+                    <div class="text-center items-start">
+                        <i 
+                            class="fa-solid fa-circle-check transition-colors duration-200"
+                            [ngClass]="{
+                                'text-gray-700': createForm.value.type !== DebtType.BORROW,
+                                'text-emerald-500': createForm.value.type === DebtType.BORROW
+                            }"></i>
                     </div>
-    
-                    <div class="ml-2 text-sm">
-                        <label
-                            for="helper-radio"
-                            class="font-medium text-gray-900
-                            dark:text-gray-300">
+                    <div class="flex flex-col leading-normal">
+                        <h5 class="mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white">
                             Borrow
-                        </label>
-                        <p
-                            id="helper-radio-text"
-                            class="text-xs font-normal text-gray-500
-                            dark:text-gray-300">
+                        </h5>
+                        <p class="text-sm font-normal text-gray-700 dark:text-gray-500">
                             You borrow money from someone
                         </p>
                     </div>
-                </div>
+                </button>
             </div>
         </div>
 

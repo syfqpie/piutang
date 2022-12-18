@@ -106,4 +106,8 @@ export class AddNewComponent implements OnInit {
 		this.onResetEvent.emit(true)
 	}
 
+	onSelectType(selected: DebtType) {
+		this.createForm.controls['type'].patchValue(selected)
+	}
+
 }
