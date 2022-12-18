@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 export interface DatePickerConfig {
 	today: Date,
@@ -21,7 +22,7 @@ export interface DatePickerConfig {
 	templateUrl: './mini-calendar-picker.component.html',
 	styleUrls: ['./mini-calendar-picker.component.css']
 })
-export class MiniCalendarPickerComponent implements OnInit {
+export class MiniCalendarPickerComponent implements OnInit, OnDestroy {
 
 	// Predefined
 	public readonly MONTH_NAMES = [
@@ -36,20 +37,54 @@ export class MiniCalendarPickerComponent implements OnInit {
 	]
 	public readonly defaultExtYear: number = 5
 
-	// Checker
-	public isShowCalendar = true
-
-	// Input
+	// Config
 	public config: DatePickerConfig = this.defaultConfig()
 
 	// Input
 	@Input()
+	isShowCalendar: boolean = false
+
+	@Input()
 	lastDay: Date | null = null
+
+	@Input()
+	onReset: EventEmitter<boolean> = new EventEmitter()
+
+	// Ouput
+	@Output()
+	onToggle: EventEmitter<boolean> = new EventEmitter()
+
+	@Output()
+	onSelect: EventEmitter<Date> = new EventEmitter()
+
+	// Subscriptions
+	subscriptions: Subscription = new Subscription
 
 	constructor() { }
 
 	ngOnInit(): void {
 		this.initSetup()
+		this.initSubscription()
+	}
+
+	ngOnDestroy(): void {
+		if (this.subscriptions) {
+			this.subscriptions.unsubscribe()
+		}
+	}
+
+	/**
+	 * Init subscription for reset event
+	 */
+	initSubscription() {
+		if (this.onReset) {
+			this.subscriptions.add(
+				this.onReset.subscribe(data => {
+						if (data) this.resetCalendar()
+					}
+				)
+			)
+		}
 	}
 	
 	/**
@@ -143,6 +178,35 @@ export class MiniCalendarPickerComponent implements OnInit {
 
 		// Reset page
 		this.getNoOfDays()
+	}
+
+	/**
+	 * Toggle event fx
+	 * 
+	 * @returns emit onToggle event
+	 */
+	public toggle() {
+		return this.onToggle.emit(true)
+	}
+
+	/**
+	 * On select date action
+	 * 
+	 * @param selectedDate selected date
+	 * @returns emit onSelect event
+	 */
+	public selectDate(selectedDate: number) {
+		const selectedDay = new Date(this.config.pageYear, this.config.pageMonth, selectedDate)
+		this.config.selectedDate = selectedDay
+		return this.onSelect.emit(selectedDay)
+	}
+
+	/**
+	 * Reset component config
+	 */
+	public resetCalendar() {
+		this.config = this.defaultConfig()
+		return this.initSetup()
 	}
 
 }

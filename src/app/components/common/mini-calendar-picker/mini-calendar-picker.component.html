@@ -10,10 +10,12 @@
                 <span class="text-sm font-bold text-gray-800">
                     {{ MONTH_NAMES[config.pageMonth] }}
                 </span>
+
                 <span class="ml-1 text-sm text-gray-600 font-normal">
                     {{ config.pageYear }}
                 </span>
             </div>
+
             <div>
                 <button
                     type="button"
@@ -32,6 +34,7 @@
                     (click)="prevMonth()">
                     <i class="fa-solid fa-chevron-left text-gray-500"></i>
                 </button>
+
                 <button
                     type="button"
                     class="transition ease-in-out duration-100 inline-flex
@@ -49,12 +52,13 @@
                     (click)="nextMonth()">
                     <i class="fa-solid fa-chevron-right text-gray-500"></i>
                 </button>
+
                 <button
                     type="button"
                     class="transition ease-in-out duration-100 inline-flex
                     cursor-pointer hover:bg-gray-200 p-1 rounded-full
                     text-sm"
-                    (click)="isShowCalendar = !isShowCalendar">
+                    (click)="toggle()">
                     <i class="fa-solid fa-xmark text-gray-400"></i>
                 </button>
             </div>
@@ -81,13 +85,13 @@
         <div class="flex flex-wrap -mx-1">
             <ng-template
                 ngFor
-                let-blankday
+                let-blankDay
                 [ngForOf]="config.pageBlankDays">
                 <div
                     style="width: 14.28%"
                     class="text-center border p-1
                     border-transparent text-sm">
-                    {{ blankday }}
+                    {{ blankDay }}
                 </div>
             </ng-template>
 
@@ -99,12 +103,12 @@
                 <div style="width: 14.28%" class="px-1 mb-1">
                     <button
                         class="[&:not(:disabled)]:cursor-pointer text-center text-sm
-                        rounded-full leading-loose transition py-0.5
+                        rounded-full leading-loose transition-colors py-0.5
                         ease-in-out duration-100 text-gray-700
                         hover:[&:not(:disabled)]:bg-emerald-200
                         hover:[&:not(:disabled)]:!text-white
-                        disabled:cursor-not-allowed disabled:opacity-25
-                        "
+                        disabled:cursor-not-allowed disabled:opacity-25"
+                        (click)="selectDate(date)"
                         [disabled]="
                             config.pageYear < config.todayYear ||
                             (
@@ -115,13 +119,16 @@
                                 date < config.todayDate &&
                                 config.pageMonth === config.todayMonth &&
                                 config.pageYear === config.todayYear
-                            )
-                        "
+                            )"
                         [ngClass]="{
-                            'bg-emerald-100':
+                            'bg-emerald-100 !text-gray-500':
                                 date === config.todayDate &&
                                 config.pageMonth === config.todayMonth &&
                                 config.pageYear === config.todayYear,
+                            'bg-emerald-500 !text-white':
+                                date === config.selectedDate?.getDate() &&
+                                config.pageMonth ===  config.selectedDate?.getMonth() &&
+                                config.pageYear ===  config.selectedDate?.getFullYear(),
                             'px-3': date < 10,
                             'px-2': date >= 10
                         }">
