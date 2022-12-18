@@ -7,12 +7,14 @@ import { MainRoutes } from './main.routing';
 import { AddNewComponent } from './add-new/add-new.component';
 import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
+import { MiniCalendarPickerComponent } from '../../components/common/mini-calendar-picker/mini-calendar-picker.component';
 
 @NgModule({
   declarations: [
     AddNewComponent,
     HomeComponent,
-    SettingsComponent
+    SettingsComponent,
+    MiniCalendarPickerComponent
   ],
   imports: [
     CommonModule,

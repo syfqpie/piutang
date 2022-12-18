@@ -1,0 +1,140 @@
+<div
+    *ngIf="isShowCalendar"
+    class="overflow-y-auto overflow-x-hidden fixed top-0
+    right-0 left-0 z-50 w-full md:inset-0 h-full
+    justify-center items-center flex">
+    <div
+        class="bg-white rounded-lg shadow p-4 w-[17rem]">
+        <div class="flex justify-between items-center mb-2">
+            <div>
+                <span class="text-sm font-bold text-gray-800">
+                    {{ MONTH_NAMES[config.pageMonth] }}
+                </span>
+                <span class="ml-1 text-sm text-gray-600 font-normal">
+                    {{ config.pageYear }}
+                </span>
+            </div>
+            <div>
+                <button
+                    type="button"
+                    class="transition ease-in-out duration-100 inline-flex
+                    cursor-pointer hover:bg-gray-200 p-1 rounded-full
+                    text-sm"
+                    [ngClass]="{
+                        'cursor-not-allowed opacity-25':
+                            config.pageMonth === config.todayMonth &&
+                            config.pageYear === config.todayYear
+                    }"
+                    [disabled]="(
+                        config.pageMonth === config.todayMonth &&
+                        config.pageYear === config.todayYear
+                    )"
+                    (click)="prevMonth()">
+                    <i class="fa-solid fa-chevron-left text-gray-500"></i>
+                </button>
+                <button
+                    type="button"
+                    class="transition ease-in-out duration-100 inline-flex
+                    cursor-pointer hover:bg-gray-200 p-1 rounded-full
+                    text-sm"
+                    [ngClass]="{
+                        'cursor-not-allowed opacity-25':
+                            config.pageMonth === config.lastDayMonth &&
+                            config.pageYear === config.lastDayYear
+                    }"
+                    [disabled]="(
+                        config.pageMonth === config.lastDayMonth &&
+                        config.pageYear === config.lastDayYear
+                    )"
+                    (click)="nextMonth()">
+                    <i class="fa-solid fa-chevron-right text-gray-500"></i>
+                </button>
+                <button
+                    type="button"
+                    class="transition ease-in-out duration-100 inline-flex
+                    cursor-pointer hover:bg-gray-200 p-1 rounded-full
+                    text-sm"
+                    (click)="isShowCalendar = !isShowCalendar">
+                    <i class="fa-solid fa-xmark text-gray-400"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap mb-3 -mx-1">
+            <ng-template
+                ngFor
+                let-index="index"
+                let-day
+                [ngForOf]="DAYS">
+                <div
+                    style="width: 14.26%"
+                    class="px-1">
+                    <div
+                        class="text-gray-800 font-medium
+                        text-center text-xs">
+                        {{ day }}
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="flex flex-wrap -mx-1">
+            <ng-template
+                ngFor
+                let-blankday
+                [ngForOf]="config.pageBlankDays">
+                <div
+                    style="width: 14.28%"
+                    class="text-center border p-1
+                    border-transparent text-sm">
+                    {{ blankday }}
+                </div>
+            </ng-template>
+
+            <ng-template
+                ngFor
+                let-index="index"
+                let-date
+                [ngForOf]="config.pageNoOfDays">
+                <div style="width: 14.28%" class="px-1 mb-1">
+                    <button
+                        class="[&:not(:disabled)]:cursor-pointer text-center text-sm
+                        rounded-full leading-loose transition py-0.5
+                        ease-in-out duration-100 text-gray-700
+                        hover:[&:not(:disabled)]:bg-emerald-200
+                        hover:[&:not(:disabled)]:!text-white
+                        disabled:cursor-not-allowed disabled:opacity-25
+                        "
+                        [disabled]="
+                            config.pageYear < config.todayYear ||
+                            (
+                                config.pageMonth < config.todayMonth &&
+                                config.pageYear === config.todayYear
+                            ) ||
+                            (
+                                date < config.todayDate &&
+                                config.pageMonth === config.todayMonth &&
+                                config.pageYear === config.todayYear
+                            )
+                        "
+                        [ngClass]="{
+                            'bg-emerald-100':
+                                date === config.todayDate &&
+                                config.pageMonth === config.todayMonth &&
+                                config.pageYear === config.todayYear,
+                            'px-3': date < 10,
+                            'px-2': date >= 10
+                        }">
+                        {{ date }}
+                    </button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div> 
+
+
+<div
+    *ngIf="isShowCalendar"
+    class="bg-gray-900 bg-opacity-50 fixed inset-0 z-40">
+</div>
