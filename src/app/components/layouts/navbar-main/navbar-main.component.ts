@@ -34,11 +34,13 @@ import { Component, OnInit } from '@angular/core';
 			<div class="flex items-end">
 				<button
 					type="button"
+					[routerLink]="['/new']"
 					class="px-3 py-2 mr-3 md:mr-0 rounded-lg font-medium text-xs
-					text-center text-white bg-emerald-700 hover:bg-emerald-800
+					border text-center text-white bg-emerald-700 hover:bg-emerald-800
 					focus:outline focus:outline-2 focus:outline-emerald-300
 					dark:bg-emerald-600 dark:hover:bg-emerald-700
-					dark:focus:outline-emerald-500 disabled:cursor-not-allowed">
+					dark:focus:border-emerald-500 dark:border-emerald-600 
+               	 	dark:focus:outline-emerald-800 disabled:cursor-not-allowed">
 					<i class="fa-solid fa-plus me-2"></i>
 					New
 				</button>
