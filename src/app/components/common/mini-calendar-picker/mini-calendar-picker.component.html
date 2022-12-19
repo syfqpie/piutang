@@ -4,14 +4,14 @@
     right-0 left-0 z-50 w-full md:inset-0 h-full
     justify-center items-center flex">
     <div
-        class="bg-white rounded-lg shadow p-4 w-[17rem]">
+        class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 w-[17rem]">
         <div class="flex justify-between items-center mb-2">
             <div>
-                <span class="text-sm font-bold text-gray-800">
+                <span class="text-sm font-bold text-gray-700 dark:text-gray-300">
                     {{ MONTH_NAMES[config.pageMonth] }}
                 </span>
 
-                <span class="ml-1 text-sm text-gray-600 font-normal">
+                <span class="ml-1 text-sm text-gray-500 font-semibold">
                     {{ config.pageYear }}
                 </span>
             </div>
@@ -19,9 +19,10 @@
             <div>
                 <button
                     type="button"
-                    class="transition ease-in-out duration-100 inline-flex
-                    cursor-pointer hover:bg-gray-200 p-1 rounded-full
-                    text-sm"
+                    class="transition-colors ease-in-out duration-150 inline-flex
+                    cursor-pointer  px-1.5 py-1 rounded-full text-xs
+                    hover:[&:not(:disabled)]:bg-gray-200 dark:bg-gray-800
+                    dark:hover:[&:not(:disabled)]:bg-gray-600"
                     [ngClass]="{
                         'cursor-not-allowed opacity-25':
                             config.pageMonth === config.todayMonth &&
@@ -32,14 +33,15 @@
                         config.pageYear === config.todayYear
                     )"
                     (click)="prevMonth()">
-                    <i class="fa-solid fa-chevron-left text-gray-500"></i>
+                    <i class="fa-solid fa-chevron-left text-gray-400"></i>
                 </button>
 
                 <button
                     type="button"
-                    class="transition ease-in-out duration-100 inline-flex
-                    cursor-pointer hover:bg-gray-200 p-1 rounded-full
-                    text-sm"
+                    class="transition-colors ease-in-out duration-150 inline-flex
+                    cursor-pointer  px-1.5 py-1 rounded-full text-xs
+                    hover:[&:not(:disabled)]:bg-gray-200 dark:bg-gray-800
+                    dark:hover:[&:not(:disabled)]:bg-gray-600"
                     [ngClass]="{
                         'cursor-not-allowed opacity-25':
                             config.pageMonth === config.lastDayMonth &&
@@ -50,14 +52,15 @@
                         config.pageYear === config.lastDayYear
                     )"
                     (click)="nextMonth()">
-                    <i class="fa-solid fa-chevron-right text-gray-500"></i>
+                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
                 </button>
 
                 <button
                     type="button"
-                    class="transition ease-in-out duration-100 inline-flex
-                    cursor-pointer hover:bg-gray-200 p-1 rounded-full
-                    text-sm"
+                    class="transition-colors ease-in-out duration-150 inline-flex
+                    cursor-pointer  px-1.5 py-1 rounded-full text-xs
+                    hover:[&:not(:disabled)]:bg-gray-200 dark:bg-gray-800
+                    dark:hover:[&:not(:disabled)]:bg-gray-600"
                     (click)="toggle()">
                     <i class="fa-solid fa-xmark text-gray-400"></i>
                 </button>
@@ -74,8 +77,8 @@
                     style="width: 14.26%"
                     class="px-1">
                     <div
-                        class="text-gray-800 font-medium
-                        text-center text-xs">
+                        class="text-center text-xs font-medium
+                        text-gray-700 dark:text-gray-300">
                         {{ day }}
                     </div>
                 </div>
@@ -89,7 +92,8 @@
                 [ngForOf]="config.pageBlankDays">
                 <div
                     style="width: 14.28%"
-                    class="text-center border p-1
+                    class="border p-1 text-center
+                    text-white dark:text-gray-800  
                     border-transparent text-sm">
                     {{ blankDay }}
                 </div>
@@ -102,12 +106,13 @@
                 [ngForOf]="config.pageNoOfDays">
                 <div style="width: 14.28%" class="px-1 mb-1">
                     <button
-                        class="[&:not(:disabled)]:cursor-pointer text-center text-sm
-                        rounded-full leading-loose transition-colors py-0.5
-                        ease-in-out duration-100 text-gray-700
+                        class="text-center text-sm rounded-full leading-loose
+                        transition-colors py-0.5 ease-in-out duration-100
+                        text-gray-700 dark:text-gray-300
                         hover:[&:not(:disabled)]:bg-emerald-200
-                        hover:[&:not(:disabled)]:!text-white
-                        disabled:cursor-not-allowed disabled:opacity-25"
+                        dark:hover:[&:not(:disabled)]:bg-gray-600
+                        disabled:cursor-not-allowed disabled:opacity-25
+                        [&:not(:disabled)]:cursor-pointer"
                         (click)="selectDate(date)"
                         [disabled]="
                             config.pageYear < config.todayYear ||
@@ -116,16 +121,17 @@
                                 config.pageYear === config.todayYear
                             ) ||
                             (
-                                date < config.todayDate &&
+                                date <= config.todayDate &&
                                 config.pageMonth === config.todayMonth &&
                                 config.pageYear === config.todayYear
                             )"
                         [ngClass]="{
-                            'bg-emerald-100 !text-gray-500':
+                            'dark:!bg-emerald-600 opacity-50':
                                 date === config.todayDate &&
                                 config.pageMonth === config.todayMonth &&
                                 config.pageYear === config.todayYear,
-                            'bg-emerald-500 !text-white':
+                            'bg-emerald-500 text-white \
+                            dark:bg-emerald-600':
                                 date === config.selectedDate?.getDate() &&
                                 config.pageMonth ===  config.selectedDate?.getMonth() &&
                                 config.pageYear ===  config.selectedDate?.getFullYear(),
