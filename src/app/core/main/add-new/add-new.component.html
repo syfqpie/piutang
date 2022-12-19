@@ -1,6 +1,6 @@
 <div class="pt-4 pb-14 px-2 md:px-0 max-w-xl mx-auto">
     <div
-        class="p-6 max-w-full mx-auto bg-gray-800 mb-4 shadow-xl
+        class="p-6 max-w-full mx-auto bg-white dark:bg-gray-800 mb-4 shadow-xl
         rounded-xl flex flex-row items-center">
         <div class="basis-8/12">
             <h3 class="text-3xl font-semibold text-emerald-500">
@@ -16,7 +16,7 @@
                 </ng-template>
             </h3>
 
-            <p class="text-gray-500 text-sm line-clamp-1 mb-2">
+            <p class="text-gray-400 dark:text-gray-500 text-sm line-clamp-1 mb-2">
                 <span *ngIf="createForm.value.notes; else notesPlaceholder">
                     {{ createForm.value.notes }}
                 </span>
@@ -53,11 +53,14 @@
         <div class="basis-4/12">
             <div class="flex items-center justify-center space-x-3">
                 <div class="shrink-0">
-                    <img class="h-9 w-9"
+                    <img
+                        class="h-9 w-9"
                         src="assets/img/avatars/ninja-gray-500.png">
                 </div>
                 <div>
-                    <p class="text-sm font-medium text-gray-200 text-ellipsis">
+                    <p
+                        class="text-sm font-medium text-ellipsis
+                        text-gray-700 dark:text-gray-200">
                         Ahmad
                     </p>
                 </div>
@@ -84,11 +87,14 @@
 
             <div class="flex items-center justify-center space-x-3">
                 <div class="shrink-0">
-                    <img class="h-9 w-9"
+                    <img
+                        class="h-9 w-9"
                         src="assets/img/avatars/astronaut-gray-500.png">
                 </div>
                 <div>
-                    <p class="text-sm font-medium text-gray-200 text-ellipsis">
+                    <p
+                        class="text-sm font-medium text-ellipsis
+                        text-gray-700 dark:text-gray-200">
                         Unknown
                     </p>
                 </div>
@@ -98,7 +104,7 @@
 
     <form
         [formGroup]="createForm"
-        class="p-6 max-w-full mx-auto bg-gray-800 mb-4
+        class="p-6 max-w-full mx-auto bg-white dark:bg-gray-800 mb-4
         shadow-xl rounded-xl flex flex-col items-center space-x-0">
         <div class="mb-5 w-full">
             <label
@@ -116,9 +122,9 @@
 
             <div class="grid grid-cols-2 gap-2">
                 <button
-                    class="flex flex-col space-x-3 items-start border
-                    rounded-lg shadow-md md:flex-row md:max-w-xl p-4  text-start
-                    cursor-pointer bg-white border-gray-300 hover:bg-gray-100
+                    class="flex space-x-3 items-start border
+                    rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
+                    cursor-pointer bg-white border-gray-100 hover:bg-gray-100
                     focus:outline focus:outline-2 focus:outline-emerald-500
                     dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
                     dark:focus:outline-emerald-800 dark:focus:border-emerald-500
@@ -146,9 +152,9 @@
                 </button>
     
                 <button
-                    class="flex flex-col space-x-3 items-start border
-                    rounded-lg shadow-md md:flex-row md:max-w-xl p-4  text-start
-                    cursor-pointer bg-white border-gray-300 hover:bg-gray-100
+                    class="flex space-x-3 items-start border
+                    rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
+                    cursor-pointer bg-white border-gray-100 hover:bg-gray-100
                     focus:outline focus:outline-2 focus:outline-emerald-500
                     dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
                     dark:focus:outline-emerald-800 dark:focus:border-emerald-500
@@ -208,7 +214,7 @@
                 <input
                     type="number"
                     formControlName="amount"
-                    class="block w-full p-2.5 rounded-lg rounded-l-none sm:text-sm
+                    class="block w-full p-2.5 rounded-lg rounded-l-none text-sm
                     border-none outline-none bg-gray-50 text-gray-900      
                     dark:bg-gray-700 dark:text-white
                     dark:placeholder-gray-400"
@@ -257,18 +263,20 @@
                 transition-colors duration-200">
                 <input
                     type="type"
-                    class="block w-full p-2.5 rounded-lg rounded-r-none sm:text-sm
-                    border-none outline-none bg-gray-50  text-gray-900
+                    class="block w-full p-2.5 rounded-lg rounded-r-none text-sm
+                    border-none outline-none bg-gray-50 text-gray-900
                     dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white 
                     disabled:cursor-not-allowed"
+                    readonly
                     value="{{ createForm.value['dueAt'] | date:'EEEE, d MMMM y' }}"
                     (click)="toggleCalendar()">
                 <button
                     class="inline-flex items-center px-2.5
                     text-sm text-gray-900 bg-gray-200
-                    border-none outline-none
+                    border-none outline-none disabled:cursor-not-allowed
                     dark:bg-gray-700 dark:text-gray-400
                     dark:border-gray-600 dark:focus:text-emerald-500"
+                    [disabled]="!createForm.value.dueAt"
                     (click)="onResetDue()">
                     <i class="fa-solid fa-circle-xmark"></i>
                 </button> 
@@ -300,7 +308,7 @@
             </label>
             <textarea
                 formControlName="notes"
-                class="block w-full p-2.5 rounded-lg sm:text-sm
+                class="block w-full p-2.5 rounded-lg text-sm
                 border bg-gray-50 border-gray-300 text-gray-900
                 focus:outline focus:outline-2 focus:outline-emerald-500
                 dark:bg-gray-700 dark:border-gray-600 
@@ -337,6 +345,7 @@
                 w-full text-white bg-emerald-700 hover:bg-emerald-800
                 focus:outline focus:outline-2 focus:outline-emerald-300
                 dark:bg-emerald-600 dark:hover:bg-emerald-700 border
+                focus:border-emerald-500
                 dark:focus:border-emerald-500 dark:border-emerald-600 
                 dark:focus:outline-emerald-800 disabled:cursor-not-allowed"
                 (click)="onSubmit()">
