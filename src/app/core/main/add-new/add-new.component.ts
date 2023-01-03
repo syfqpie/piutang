@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { DebtType } from 'src/app/shared/services/debt/debt.model';
+import { Human } from 'src/app/shared/services/human/human.model';
 
 @Component({
 	selector: 'app-add-new',
@@ -24,9 +25,9 @@ export class AddNewComponent implements OnInit {
 	 * 
 	 * ISO 4217 currency code list https://en.wikipedia.org/wiki/ISO_4217
 	 */
-	public currCode = 'MYR'
-	public currDisplay = 'symbol-narrow'
-	public currDigitsInfo = '1.2-2'
+	public readonly currCode = 'MYR'
+	public readonly currDisplay = 'symbol-narrow'
+	public readonly currDigitsInfo = '1.2-2'
 
 	// Form
 	public createForm = new FormGroup({
@@ -41,7 +42,7 @@ export class AddNewComponent implements OnInit {
 			{ type: 'required', message: 'Need a type' }
 		],
 		human: [
-			{ type: 'required', message: 'Need to point to someone' }
+			{ type: 'required', message: 'Need someone' }
 		],
 		notes: [
 			{ type: 'required', message: 'Leave a note, nanti lupa' }
@@ -51,8 +52,10 @@ export class AddNewComponent implements OnInit {
 			{ type: 'min', message: 'That\'s impossible...' }
 		]
 	}
+	public selectedHuman: Human | null = null
 
 	// Checker
+	public isLoading: boolean = true
 	public isShowCalendar: boolean = false
 
 	// Event
@@ -64,7 +67,6 @@ export class AddNewComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.initForm()
-		
 	}
 
 	initForm() {
@@ -88,8 +90,15 @@ export class AddNewComponent implements OnInit {
 	}
 
 	onSubmit() {
+		/**
+		 * Add submit logic here
+		 */
 		this.createForm.markAllAsTouched()
-		console.log(this.createForm.value)
+
+		if (this.createForm.valid) {
+			// this.isLoading = true
+		}
+
 	}
 
 	toggleCalendar() {
@@ -108,6 +117,11 @@ export class AddNewComponent implements OnInit {
 
 	onSelectType(selected: DebtType) {
 		this.createForm.controls['type'].patchValue(selected)
+	}
+
+	onSelectHuman(selected: Human) {
+		this.selectedHuman = selected
+		this.createForm.controls['human'].patchValue(this.selectedHuman.id)
 	}
 
 }

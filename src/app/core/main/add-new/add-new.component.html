@@ -31,7 +31,7 @@
                 class="bg-gray-100 text-gray-800 text-xs
                 font-semibold mr-2 px-2.5 py-0.5 rounded
                 dark:bg-gray-700 dark:text-gray-300
-                transition duration-200">
+                transition duration-100">
                 {{ 
                     createForm.value.type === DebtType.BORROW ?
                     'Borrow' :
@@ -44,7 +44,7 @@
                 class="bg-gray-100 text-gray-800 text-xs
                 font-semibold mr-2 px-2.5 py-0.5 rounded
                 dark:bg-gray-700 dark:text-gray-300
-                transition duration-200">
+                transition duration-100">
                 <i class="fa-solid fa-hourglass-start mr-1"></i>
                 {{ createForm.value.dueAt | date:'dd/MM/yyyy' }}
             </span>
@@ -69,18 +69,18 @@
             <div class="flex items-center justify-center my-2">
                 <div>
                     <i
-                        class="fa-solid fa-turn-down rotate-180 fa-lg
-                        transition duration-200"
-                        [ngClass]="{
-                            'text-emerald-500': createForm.value.type === DebtType.BORROW,
-                            'text-gray-500': createForm.value.type === DebtType.LEND
-                        }"></i>
-                    <i
-                        class="fa-solid fa-turn-down fa-lg
-                        transition duration-200"
+                        class="fa-solid fa-turn-up rotate-180 fa-lg
+                        transition duration-100"
                         [ngClass]="{
                             'text-emerald-500': createForm.value.type === DebtType.LEND,
                             'text-gray-500': createForm.value.type === DebtType.BORROW
+                        }"></i>
+                    <i
+                        class="fa-solid fa-turn-up fa-lg
+                        transition duration-100"
+                        [ngClass]="{
+                            'text-emerald-500': createForm.value.type === DebtType.BORROW,
+                            'text-gray-500': createForm.value.type === DebtType.LEND
                         }"></i>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                     <p
                         class="text-sm font-medium text-ellipsis
                         text-gray-700 dark:text-gray-200">
-                        Unknown
+                        {{ selectedHuman ? selectedHuman.name : 'Unknown' }}
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
                     }">*</span>
             </label>
 
-            <div class="grid grid-cols-2 gap-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <button
                     class="flex space-x-3 items-start border
                     rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
@@ -128,14 +128,14 @@
                     focus:outline focus:outline-2 focus:outline-emerald-500
                     dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
                     dark:focus:outline-emerald-800 dark:focus:border-emerald-500
-                    transition-colors duration-200"
+                    transition-colors duration-100"
                     [ngClass]="{
                         'dark:!border-emerald-500': createForm.value.type === DebtType.LEND
                     }"
                     (click)="onSelectType(DebtType.LEND)">
                     <div class="text-center items-start">
                         <i
-                            class="fa-solid fa-circle-check transition-colors duration-200"
+                            class="fa-solid fa-circle-check transition-colors duration-100"
                             [ngClass]="{
                                 'text-gray-700': createForm.value.type !== DebtType.LEND,
                                 'text-emerald-500': createForm.value.type === DebtType.LEND
@@ -158,14 +158,14 @@
                     focus:outline focus:outline-2 focus:outline-emerald-500
                     dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
                     dark:focus:outline-emerald-800 dark:focus:border-emerald-500
-                    transition-colors duration-200"
+                    transition-colors duration-100"
                     [ngClass]="{
                         'dark:!border-emerald-500': createForm.value.type === DebtType.BORROW
                     }"
                     (click)="onSelectType(DebtType.BORROW)">
                     <div class="text-center items-start">
                         <i 
-                            class="fa-solid fa-circle-check transition-colors duration-200"
+                            class="fa-solid fa-circle-check transition-colors duration-100"
                             [ngClass]="{
                                 'text-gray-700': createForm.value.type !== DebtType.BORROW,
                                 'text-emerald-500': createForm.value.type === DebtType.BORROW
@@ -203,7 +203,7 @@
                 dark:bg-gray-700 dark:border-gray-600
                 dark:focus-within:!outline-emerald-800
                 dark:focus-within:!border-emerald-500
-                transition-colors duration-200">
+                transition-colors duration-100">
                 <span
                     class="inline-flex items-center px-2.5
                     text-sm text-gray-900 bg-gray-200
@@ -240,6 +240,41 @@
         </div>
 
         <div class="mb-5 w-full">
+            <label
+                class="block mb-2 text-sm font-medium
+                text-gray-900 dark:text-white">
+                Who?
+                <span
+                    [ngClass]="{
+                        'text-red-600 dark:text-red-500':
+                            createForm.controls['human'].errors &&
+                            (createForm.controls['human'].dirty ||
+                            createForm.controls['human'].touched)
+                    }">*</span>
+            </label>
+            <pkt-add-human
+                (onSelect)="onSelectHuman($event)">
+            </pkt-add-human>
+
+            <ng-template
+                [ngIf]="createForm.controls['human'].errors &&
+                (createForm.controls['human'].dirty ||
+                createForm.controls['human'].touched)">
+                <ng-container *ngFor="let message of formMessages['human']">
+                    <ng-template
+                        [ngIf]="createForm.controls['human'].hasError(message.type) &&
+                        (createForm.controls['human'].dirty ||
+                        createForm.controls['human'].touched)">
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                            <span class="font-medium">Oops!</span>
+                            {{ message.message }}
+                        </p>
+                    </ng-template>
+                </ng-container>
+            </ng-template>
+        </div>
+
+        <div class="mb-5 w-full">
             <pkt-mini-calendar-picker
                 [isShowCalendar]="isShowCalendar"
                 (onToggle)="toggleCalendar()"
@@ -260,7 +295,7 @@
                 dark:bg-gray-700 dark:border-gray-600
                 dark:focus-within:!outline-emerald-800
                 dark:focus-within:!border-emerald-500
-                transition-colors duration-200">
+                transition-colors duration-100">
                 <input
                     type="type"
                     class="block w-full p-2.5 rounded-lg rounded-r-none text-sm
@@ -316,7 +351,7 @@
                 dark:focus:outline-emerald-800
                 dark:focus:border-emerald-500
                 disabled:cursor-not-allowed
-                transition-colors duration-200"
+                transition-colors duration-100"
                 placeholder="Eg: Roti canai"
                 rows="2"></textarea>
             
@@ -348,8 +383,17 @@
                 focus:border-emerald-500
                 dark:focus:border-emerald-500 dark:border-emerald-600 
                 dark:focus:outline-emerald-800 disabled:cursor-not-allowed"
+                [disabled]="isLoading"
                 (click)="onSubmit()">
-                Save
+                <span>
+                    <i
+                        *ngIf="isLoading; else notLoading"
+                        class="fa-solid fa-circle-notch fa-spin ms-auto">
+                    </i>
+                    <ng-template #notLoading>
+                        Save
+                    </ng-template>
+                </span>
             </button>
         </div>
     </form>
