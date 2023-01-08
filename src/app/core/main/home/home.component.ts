@@ -12,6 +12,8 @@ import { DebtService } from 'src/app/shared/services/debt/debt.service';
 export class HomeComponent implements OnInit, OnDestroy {
 
   // Data
+  totalLended: number = 9999.20
+  totalBorrowed: number = 120.80
   latestDebts: Debt[] = []
 
   // Predfined
