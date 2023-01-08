@@ -30,7 +30,7 @@ import { filter, Subscription } from 'rxjs';
 			</div>
 
 			<div class="col-span-1 flex items-center justify-center">
-				<h3 class="text-white font-semibold">
+				<h3 class="text-neutral-900 dark:text-white font-semibold">
 					{{ navbarTitle }}
 				</h3>
 			</div>
