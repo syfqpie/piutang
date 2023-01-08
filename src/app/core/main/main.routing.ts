@@ -7,14 +7,23 @@ import { SettingsComponent } from './settings/settings.component';
 export const MainRoutes: Routes = [
     {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
+        data: {
+            title: 'Home'
+        }
     },
     {
         path: 'new',
-        component: AddNewComponent
+        component: AddNewComponent,
+        data: {
+            title: 'New entry'
+        }
     },
     {
         path: 'settings',
-        component: SettingsComponent
+        component: SettingsComponent,
+        data: {
+            title: 'Settings'
+        }
     }
 ]
