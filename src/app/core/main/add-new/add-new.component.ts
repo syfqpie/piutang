@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { DebtType } from 'src/app/shared/services/debt/debt.model';
 import { Human } from 'src/app/shared/services/human/human.model';
@@ -55,14 +56,15 @@ export class AddNewComponent implements OnInit {
 	public selectedHuman: Human | null = null
 
 	// Checker
-	public isLoading: boolean = true
+	public isLoading: boolean = false
 	public isShowCalendar: boolean = false
 
 	// Event
 	public onResetEvent: EventEmitter<boolean> = new EventEmitter()
 
 	constructor(
-		private fb: FormBuilder
+		private fb: FormBuilder,
+		private router: Router
 	) { }
 
 	ngOnInit(): void {
@@ -97,6 +99,7 @@ export class AddNewComponent implements OnInit {
 
 		if (this.createForm.valid) {
 			// this.isLoading = true
+			this.router.navigate(['/home'])
 		}
 
 	}
