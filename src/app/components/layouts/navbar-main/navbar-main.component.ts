@@ -7,7 +7,7 @@ import { filter, Subscription } from 'rxjs';
 	template: `
     <nav
 		class="bg-white border-gray-200 px-2
-		md:px-40 py-2.5 rounded dark:bg-gray-900
+		md:px-40 py-2.5 rounded dark:bg-neutral-900
 		shadow-md dark:shadow-lg">
 		<div
 			class="container grid grid-cols-3">

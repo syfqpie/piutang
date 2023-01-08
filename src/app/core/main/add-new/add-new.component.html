@@ -1,6 +1,6 @@
 <div class="pt-4 pb-14 px-2 md:px-0 max-w-xl mx-auto">
     <div
-        class="p-6 max-w-full mx-auto bg-white dark:bg-gray-800 mb-4 shadow-xl
+        class="p-6 max-w-full mx-auto bg-white dark:bg-neutral-800 mb-4 shadow-xl
         rounded-xl flex flex-row items-center">
         <div class="basis-8/12">
             <h3 class="text-3xl font-semibold text-emerald-500">
@@ -16,7 +16,7 @@
                 </ng-template>
             </h3>
 
-            <p class="text-gray-400 dark:text-gray-500 text-sm line-clamp-1 mb-2">
+            <p class="text-neutral-400 dark:text-neutral-500 text-sm line-clamp-1 mb-2">
                 <span *ngIf="createForm.value.notes; else notesPlaceholder">
                     {{ createForm.value.notes }}
                 </span>
@@ -28,9 +28,9 @@
             </p>
 
             <span
-                class="bg-gray-100 text-gray-800 text-xs
+                class="bg-neutral-100 text-neutral-800 text-xs
                 font-semibold mr-2 px-2.5 py-0.5 rounded
-                dark:bg-gray-700 dark:text-gray-300
+                dark:bg-neutral-700 dark:text-neutral-300
                 transition duration-100">
                 {{ 
                     createForm.value.type === DebtType.BORROW ?
@@ -41,9 +41,9 @@
 
             <span
                 *ngIf="createForm.value.dueAt"
-                class="bg-gray-100 text-gray-800 text-xs
+                class="bg-neutral-100 text-neutral-800 text-xs
                 font-semibold mr-2 px-2.5 py-0.5 rounded
-                dark:bg-gray-700 dark:text-gray-300
+                dark:bg-neutral-700 dark:text-neutral-300
                 transition duration-100">
                 <i class="fa-solid fa-hourglass-start mr-1"></i>
                 {{ createForm.value.dueAt | date:'dd/MM/yyyy' }}
@@ -60,7 +60,7 @@
                 <div>
                     <p
                         class="text-sm font-medium text-ellipsis
-                        text-gray-700 dark:text-gray-200">
+                        text-neutral-700 dark:text-neutral-200">
                         Ahmad
                     </p>
                 </div>
@@ -73,14 +73,14 @@
                         transition duration-100"
                         [ngClass]="{
                             'text-emerald-500': createForm.value.type === DebtType.LEND,
-                            'text-gray-500': createForm.value.type === DebtType.BORROW
+                            'text-neutral-500': createForm.value.type === DebtType.BORROW
                         }"></i>
                     <i
                         class="fa-solid fa-turn-up fa-lg
                         transition duration-100"
                         [ngClass]="{
                             'text-emerald-500': createForm.value.type === DebtType.BORROW,
-                            'text-gray-500': createForm.value.type === DebtType.LEND
+                            'text-neutral-500': createForm.value.type === DebtType.LEND
                         }"></i>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                 <div>
                     <p
                         class="text-sm font-medium text-ellipsis
-                        text-gray-700 dark:text-gray-200">
+                        text-neutral-700 dark:text-neutral-200">
                         {{ selectedHuman ? selectedHuman.name : 'Unknown' }}
                     </p>
                 </div>
@@ -104,12 +104,12 @@
 
     <form
         [formGroup]="createForm"
-        class="p-6 max-w-full mx-auto bg-white dark:bg-gray-800 mb-4
+        class="p-6 max-w-full mx-auto bg-white dark:bg-neutral-800 mb-4
         shadow-xl rounded-xl flex flex-col items-center space-x-0">
         <div class="mb-5 w-full">
             <label
                 class="block mb-2 text-sm font-medium
-                text-gray-900 dark:text-white">
+                text-neutral-900 dark:text-white">
                 Entry type
                 <span
                     [ngClass]="{
@@ -124,9 +124,9 @@
                 <button
                     class="flex space-x-3 items-start border
                     rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
-                    cursor-pointer bg-white border-gray-100 hover:bg-gray-100
+                    cursor-pointer bg-white border-neutral-100 hover:bg-neutral-100
                     focus:outline focus:outline-2 focus:outline-emerald-500
-                    dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
+                    dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
                     dark:focus:outline-emerald-800 dark:focus:border-emerald-500
                     transition-colors duration-100"
                     [ngClass]="{
@@ -137,15 +137,15 @@
                         <i
                             class="fa-solid fa-circle-check transition-colors duration-100"
                             [ngClass]="{
-                                'text-gray-700': createForm.value.type !== DebtType.LEND,
+                                'text-neutral-700': createForm.value.type !== DebtType.LEND,
                                 'text-emerald-500': createForm.value.type === DebtType.LEND
                             }"></i>
                     </div>
                     <div class="flex flex-col leading-normal">
-                        <h5 class="mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white">
+                        <h5 class="mb-2 text-base font-bold tracking-tight text-neutral-900 dark:text-white">
                             Lend
                         </h5>
-                        <p class="text-sm font-normal text-gray-700 dark:text-gray-500">
+                        <p class="text-sm font-normal text-neutral-700 dark:text-neutral-500">
                             You lend your money to someone
                         </p>
                     </div>
@@ -154,9 +154,9 @@
                 <button
                     class="flex space-x-3 items-start border
                     rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
-                    cursor-pointer bg-white border-gray-100 hover:bg-gray-100
+                    cursor-pointer bg-white border-neutral-100 hover:bg-neutral-100
                     focus:outline focus:outline-2 focus:outline-emerald-500
-                    dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
+                    dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
                     dark:focus:outline-emerald-800 dark:focus:border-emerald-500
                     transition-colors duration-100"
                     [ngClass]="{
@@ -167,15 +167,15 @@
                         <i 
                             class="fa-solid fa-circle-check transition-colors duration-100"
                             [ngClass]="{
-                                'text-gray-700': createForm.value.type !== DebtType.BORROW,
+                                'text-neutral-700': createForm.value.type !== DebtType.BORROW,
                                 'text-emerald-500': createForm.value.type === DebtType.BORROW
                             }"></i>
                     </div>
                     <div class="flex flex-col leading-normal">
-                        <h5 class="mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white">
+                        <h5 class="mb-2 text-base font-bold tracking-tight text-neutral-900 dark:text-white">
                             Borrow
                         </h5>
-                        <p class="text-sm font-normal text-gray-700 dark:text-gray-500">
+                        <p class="text-sm font-normal text-neutral-700 dark:text-neutral-500">
                             You borrow money from someone
                         </p>
                     </div>
@@ -186,7 +186,7 @@
         <div class="mb-5 w-full">
             <label
                 class="block mb-2 text-sm font-medium
-                text-gray-900 dark:text-white">
+                text-neutral-900 dark:text-white">
                 How much?
                 <span
                     [ngClass]="{
@@ -198,26 +198,26 @@
             </label>
             <div
                 class="flex group focus-within:outline
-                rounded-lg border border-gray-300 bg-gray-200
+                rounded-lg border border-neutral-300 bg-neutral-200
                 focus-within:outline-2 focus-within:!outline-emerald-500
-                dark:bg-gray-700 dark:border-gray-600
+                dark:bg-neutral-700 dark:border-neutral-600
                 dark:focus-within:!outline-emerald-800
                 dark:focus-within:!border-emerald-500
                 transition-colors duration-100">
                 <span
                     class="inline-flex items-center px-2.5
-                    text-sm text-gray-900 bg-gray-200
+                    text-sm text-neutral-900 bg-neutral-200
                     rounded-l-lg border-none outline-none
-                    dark:bg-gray-600 dark:text-gray-400">
+                    dark:bg-neutral-600 dark:text-neutral-400">
                     RM
                 </span>
                 <input
                     type="number"
                     formControlName="amount"
                     class="block w-full p-2.5 rounded-lg rounded-l-none text-sm
-                    border-none outline-none bg-gray-50 text-gray-900      
-                    dark:bg-gray-700 dark:text-white
-                    dark:placeholder-gray-400"
+                    border-none outline-none bg-neutral-50 text-neutral-900      
+                    dark:bg-neutral-700 dark:text-white
+                    dark:placeholder-neutral-400"
                     placeholder="Eg: 100.00">
             </div>
 
@@ -242,7 +242,7 @@
         <div class="mb-5 w-full">
             <label
                 class="block mb-2 text-sm font-medium
-                text-gray-900 dark:text-white">
+                text-neutral-900 dark:text-white">
                 Who?
                 <span
                     [ngClass]="{
@@ -284,33 +284,33 @@
 
             <label
                 class="block mb-2 text-sm font-medium
-                text-gray-900 dark:text-white">
+                text-neutral-900 dark:text-white">
                 Due at
             </label>
 
             <div
                 class="flex group focus-within:outline
-                rounded-lg border border-gray-300 bg-gray-200
+                rounded-lg border border-neutral-300 bg-neutral-200
                 focus-within:outline-2 focus-within:!outline-emerald-500
-                dark:bg-gray-700 dark:border-gray-600
+                dark:bg-neutral-700 dark:border-neutral-600
                 dark:focus-within:!outline-emerald-800
                 dark:focus-within:!border-emerald-500
                 transition-colors duration-100">
                 <input
                     type="type"
                     class="block w-full p-2.5 rounded-lg rounded-r-none text-sm
-                    border-none outline-none bg-gray-50 text-gray-900
-                    dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white 
+                    border-none outline-none bg-neutral-50 text-neutral-900
+                    dark:bg-neutral-700 dark:placeholder-neutral-400 dark:text-white 
                     disabled:cursor-not-allowed"
                     readonly
                     value="{{ createForm.value['dueAt'] | date:'EEEE, d MMMM y' }}"
                     (click)="toggleCalendar()">
                 <button
                     class="inline-flex items-center px-2.5
-                    text-sm text-gray-900 bg-gray-200
+                    text-sm text-neutral-900 bg-neutral-200
                     border-none outline-none disabled:cursor-not-allowed
-                    dark:bg-gray-700 dark:text-gray-400
-                    dark:border-gray-600 dark:focus:text-emerald-500"
+                    dark:bg-neutral-700 dark:text-neutral-400
+                    dark:border-neutral-600 dark:focus:text-emerald-500"
                     [disabled]="!createForm.value.dueAt"
                     (click)="onResetDue()">
                     <i class="fa-solid fa-circle-xmark"></i>
@@ -318,9 +318,9 @@
 
                 <button
                     class="inline-flex items-center px-2.5
-                    text-sm text-gray-900 bg-gray-200 rounded-lg
+                    text-sm text-neutral-900 bg-neutral-200 rounded-lg
                     rounded-l-none border-none outline-none
-                    dark:bg-gray-600 dark:text-gray-400
+                    dark:bg-neutral-600 dark:text-neutral-400
                     dark:focus:text-emerald-500"
                     (click)="toggleCalendar()">
                     <i class="fa-solid fa-calendar-day"></i>
@@ -331,7 +331,7 @@
         <div class="mb-5 w-full">
             <label
                 class="block mb-2 text-sm font-medium
-                text-gray-900 dark:text-white">
+                text-neutral-900 dark:text-white">
                 Notes
                 <span
                     [ngClass]="{
@@ -344,10 +344,10 @@
             <textarea
                 formControlName="notes"
                 class="block w-full p-2.5 rounded-lg text-sm
-                border bg-gray-50 border-gray-300 text-gray-900
+                border bg-neutral-50 border-neutral-300 text-neutral-900
                 focus:outline focus:outline-2 focus:outline-emerald-500
-                dark:bg-gray-700 dark:border-gray-600 
-                dark:placeholder-gray-400 dark:text-white
+                dark:bg-neutral-700 dark:border-neutral-600 
+                dark:placeholder-neutral-400 dark:text-white
                 dark:focus:outline-emerald-800
                 dark:focus:border-emerald-500
                 disabled:cursor-not-allowed

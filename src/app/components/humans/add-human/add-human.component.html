@@ -1,25 +1,25 @@
 <div class="w-full relative">
     <div
         class="flex group focus-within:outline relative
-        rounded-lg border border-gray-300 bg-gray-200
+        rounded-lg border border-neutral-300 bg-neutral-200
         focus-within:outline-2 focus-within:!outline-emerald-500
-        dark:bg-gray-700 dark:border-gray-600
+        dark:bg-neutral-700 dark:border-neutral-600
         dark:focus-within:!outline-emerald-800
         dark:focus-within:!border-emerald-500
         transition-colors duration-200">
         <span
             class="inline-flex items-center px-2.5
-            text-sm bg-gray-50 text-gray-900
+            text-sm bg-neutral-50 text-neutral-900
             rounded-l-lg border-none outline-none
-            dark:bg-gray-700 dark:text-gray-400">
+            dark:bg-neutral-700 dark:text-neutral-400">
             <i class="fa-solid fa-user-astronaut fa-lg ms-auto"></i>
         </span>
         <input
             type="text"
             class="block w-full p-2.5 pl-0 rounded-lg rounded-l-none text-sm
-            border-none outline-none bg-gray-50 text-gray-900      
-            dark:bg-gray-700 dark:text-white
-            dark:placeholder-gray-400"
+            border-none outline-none bg-neutral-50 text-neutral-900      
+            dark:bg-neutral-700 dark:text-white
+            dark:placeholder-neutral-400"
             [placeholder]="placeholderText"
             (blur)="onBlurInput($event)"
             (focus)="onFocusInput($event)"
@@ -31,9 +31,9 @@
         <span
             *ngIf="isLoading"
             class="inline-flex items-center px-2.5
-            text-sm bg-gray-50 text-gray-900
+            text-sm bg-neutral-50 text-neutral-900
             rounded-r-lg border-none outline-none
-            dark:bg-gray-700 dark:text-gray-400">
+            dark:bg-neutral-700 dark:text-neutral-400">
             <i class="fa-solid fa-circle-notch fa-spin ms-auto"></i>
         </span>
     </div>
@@ -52,9 +52,9 @@
                 [ngForOf]="results">
                 <button
                     class="p-2 text-start w-full first:rounded-t-lg last:rounded-b-lg
-                    border border-t-0 first:border-t bg-white border-gray-100 focus:border-t
-                    hover:bg-gray-100 focus:outline focus:outline-2 focus:outline-emerald-500
-                    dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
+                    border border-t-0 first:border-t bg-white border-neutral-100 focus:border-t
+                    hover:bg-neutral-100 focus:outline focus:outline-2 focus:outline-emerald-500
+                    dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
                     dark:focus:outline-emerald-800 dark:focus:border-emerald-500
                     transition-colors duration-200"
                     (click)="onSelectHuman(human)">
@@ -71,9 +71,9 @@
                 humanForm.dirty">
                 <button
                     class="p-2 text-start w-full first:rounded-t-lg last:rounded-b-lg
-                    border border-t-0 first:border-t bg-white border-gray-100 focus:border-t
-                    hover:bg-gray-100 focus:outline focus:outline-2 focus:outline-emerald-500
-                    dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
+                    border border-t-0 first:border-t bg-white border-neutral-100 focus:border-t
+                    hover:bg-neutral-100 focus:outline focus:outline-2 focus:outline-emerald-500
+                    dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
                     dark:focus:outline-emerald-800 dark:focus:border-emerald-500
                     transition-colors duration-200"
                     (click)="onAddNew()">
@@ -94,9 +94,9 @@
                 humanForm.value">
                 <button
                     class="p-2 text-start w-full first:rounded-t-lg last:rounded-b-lg
-                    border border-t-0 first:border-t bg-white border-gray-100 focus:border-t
-                    hover:bg-gray-100 focus:outline focus:outline-2 focus:outline-emerald-500
-                    dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700
+                    border border-t-0 first:border-t bg-white border-neutral-100 focus:border-t
+                    hover:bg-neutral-100 focus:outline focus:outline-2 focus:outline-emerald-500
+                    dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
                     dark:focus:outline-emerald-800 dark:focus:border-emerald-500
                     transition-colors duration-200"
                     (click)="onAddNew()">
@@ -118,8 +118,8 @@
                     <button
                         disabled
                         class="p-2 text-start w-full first:rounded-t-lg last:rounded-b-lg
-                        border border-t-0 first:border-t bg-white border-gray-100 
-                        dark:bg-gray-800 dark:border-gray-700 cursor-not-allowed">
+                        border border-t-0 first:border-t bg-white border-neutral-100 
+                        dark:bg-neutral-800 dark:border-neutral-700 cursor-not-allowed">
                         <div class="font-medium px-2 text-red-500">
                             <i class="fa-solid fa-circle-exclamation fa-xs mr-2"></i>
                             Oops! {{ message.message }}
