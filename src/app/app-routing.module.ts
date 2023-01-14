@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { LayoutAuthComponent } from './layouts/layout-auth/layout-auth.component';
 import { LayoutMainComponent } from './layouts/layout-main/layout-main.component';
+import { AuthGuard } from './shared/handlers/auth/auth.guard';
 
 const routes: Routes = [
   // Default
@@ -8,10 +11,22 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutMainComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
         loadChildren: () => import('./core/main/main.module').then(m => m.MainModule)
+      }
+    ]
+  },
+  {
+    path: 'auth',
+    component: LayoutAuthComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./core/auth/auth.module').then(m => m.AuthModule)
       }
     ]
   }

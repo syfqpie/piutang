@@ -54,12 +54,12 @@ export class TabBarMainComponent implements OnInit {
 		{
 			title: 'Home',
 			path: ['/home'],
-			icon: 'fa-brands fa-fort-awesome-alt'
+			icon: 'fa-solid fa-coins'
 		},
 		{
 			title: 'Settings',
 			path: ['/settings'],
-			icon: 'fa-solid fa-sliders'
+			icon: 'fa-solid fa-bars-progress'
 		}
 	]
 
