@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
 	// Supabase
-	private supabase: SupabaseClient
+	public supabase: SupabaseClient
 	public _session?: AuthSession | null
 
 	constructor() {
@@ -30,12 +30,12 @@ export class AuthService {
 	 */
 	async getSession() {
 		return await this.supabase.auth.getSession()
-			.then(({ data }) => {
+			.then(({ data, error }) => {
 				this._session = data.session
-				console.log('>>', this._session)
-			})
-			.catch(({ err }) => {
-				console.log('err', err)
+				
+				if (error) {
+					throw error
+				}
 			})
 	}
 
