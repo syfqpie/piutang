@@ -101,4 +101,18 @@ export class AuthService {
 			})
 	}
 
+	async resetPassword(email: string) {
+		const redirectTo = {
+			redirectTo: `${environment.baseDomain}home`
+		}
+		return await this.supabase.auth.resetPasswordForEmail(email, redirectTo)
+			.then(({ error }) => {
+				this._session = undefined
+
+				if (error) {
+					throw error
+				}
+			})
+	}
+
 }
