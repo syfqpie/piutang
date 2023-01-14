@@ -101,6 +101,18 @@ export class AuthService {
 			})
 	}
 
+	/**
+	 * Request for password reset.
+	 * 
+	 * TODO:
+	 * 	1. Add event listener
+	 * 	2. Handle redirected reset password links from email
+	 * 	to let user update password ONLY with conditions
+	 * 
+	 * @param email user email
+	 * 
+	 * @returns supabase resetPasswordForEmail()
+	 */
 	async resetPassword(email: string) {
 		const redirectTo = {
 			redirectTo: `${environment.baseDomain}home`
