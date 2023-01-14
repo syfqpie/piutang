@@ -1,1 +1,39 @@
-<p>settings works!</p>
+<div class="pt-4 pb-14 px-2 md:px-0 max-w-xl mx-auto">
+    <section class="grid grid-cols-2 gap-4 my-12">
+        <div class="text-start border border-neutral-700 rounded-xl p-4 shadow-xl">
+            <h3 class="text-4xl md:text-2xl font-bold mb-0">
+                <!-- ${{ totalLended | number:'1.2-2' }} -->
+            </h3>
+            <p class="text-xs dark:text-neutral-500">
+                Lended
+            </p>
+        </div>
+
+        <div class="text-start border border-neutral-700 rounded-xl p-4 shadow-xl">
+            <h3 class="text-4xl md:text-2xl font-bold">
+                <!-- ${{ totalBorrowed | number:'1.2-2' }} -->
+            </h3>
+            <p class="text-xs dark:text-neutral-500">
+                Borrowed
+            </p>
+        </div>
+    </section>
+
+    <section class="w-full">
+        <div class="mb-0 w-full">
+            <button
+                type="button"
+                class="py-3 px-5 rounded-lg text-sm font-medium text-center
+                w-full border text-emerald-700 border-emerald-600
+                focus:outline focus:outline-2 focus:outline-emerald-200
+                hover:text-white hover:bg-emerald-700 focus:border-emerald-500 
+                dark:text-emerald-500 dark:border-emerald-500 dark:focus:border-emerald-500
+                dark:hover:text-white dark:hover:bg-emerald-700 
+                dark:focus:outline-emerald-800 disabled:cursor-not-allowed">
+                <span>
+                    Logout
+                </span>
+            </button>
+        </div>
+    </section>
+</div>
