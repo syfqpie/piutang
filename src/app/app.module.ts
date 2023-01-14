@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LayoutAuthComponent } from './layouts/layout-auth/layout-auth.component';
 import { LayoutMainComponent } from './layouts/layout-main/layout-main.component';
 import { NavbarMainComponent } from './components/layouts/navbar-main/navbar-main.component';
 import { TabBarMainComponent } from './components/layouts/tab-bar-main/tab-bar-main.component';
@@ -13,6 +14,7 @@ import { TabBarMainComponent } from './components/layouts/tab-bar-main/tab-bar-m
 @NgModule({
   declarations: [
     AppComponent,
+    LayoutAuthComponent,
     LayoutMainComponent,
     NavbarMainComponent,
     TabBarMainComponent
