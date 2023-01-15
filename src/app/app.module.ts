@@ -11,6 +11,8 @@ import { LayoutMainComponent } from './layouts/layout-main/layout-main.component
 import { NavbarMainComponent } from './components/layouts/navbar-main/navbar-main.component';
 import { TabBarMainComponent } from './components/layouts/tab-bar-main/tab-bar-main.component';
 
+import { TrinityRingsSpinnerModule } from 'angular-epic-spinners'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { TabBarMainComponent } from './components/layouts/tab-bar-main/tab-bar-m
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TrinityRingsSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
