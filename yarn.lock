@@ -1910,6 +1910,13 @@ ajv@^8.0.0, ajv@^8.8.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
+angular-epic-spinners@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/angular-epic-spinners/-/angular-epic-spinners-2.0.0.tgz#2f7c340836e98b6dddadf754a7185c3172d7a03a"
+  integrity sha512-+OElE3Vb0A555DcRh44LpHuYxdoTKFsOkVCFubFBt4FexYLaPuyzY0qGL566C2Y/i0cFmcl+CNcKvX1SuVp0Ig==
+  dependencies:
+    tslib "^1.9.0"
+
 ansi-colors@4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"

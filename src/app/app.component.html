@@ -1,3 +1,13 @@
 <div class="bg-neutral-100 dark:bg-neutral-900">
   <router-outlet></router-outlet>
 </div>
+
+<ng-container *ngIf="isResolving | async">
+  <app-trinity-rings-spinner
+    class="overflow-y-auto overflow-x-hidden fixed top-0
+    right-0 left-0 z-50 w-full md:inset-0 h-full
+    justify-center items-center flex bg-black bg-opacity-90"
+    [animationDuration]="1300"
+    [color]="'#10b981'"
+  ></app-trinity-rings-spinner>
+</ng-container>
