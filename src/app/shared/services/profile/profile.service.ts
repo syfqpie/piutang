@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
 import { Profile } from './profile.model';
@@ -11,6 +12,7 @@ const PROFILES = 'profiles'
 export class ProfileService {
 
 	public currentProfile: Profile | null = null
+	public profileSubject: Subject<Profile | null> = new Subject<Profile | null>()
 
 	constructor(
 		private authSvc: AuthService
@@ -28,6 +30,7 @@ export class ProfileService {
 			.then(({ data, error }) => {
 				if (data && data.length === 1) {
 				  this.currentProfile = data[0]
+				  this.profileSubject.next(this.currentProfile)
 				}
 
 				if (error || !this.currentProfile) {
@@ -50,6 +53,7 @@ export class ProfileService {
 			.then(({ data, error }) => {
 				if (data && data.length === 1) {
 					this.currentProfile = data[0]
+					this.profileSubject.next(this.currentProfile)
 				}
   
 				if (error || !this.currentProfile) {

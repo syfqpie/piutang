@@ -14,7 +14,7 @@
         </div>
     </section>
 
-    <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+    <section class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
         <ng-template
             ngFor
             let-item
@@ -29,17 +29,21 @@
                 (click)="item.handler()">
                 <div class="text-center items-start">
                     <i 
-                        class="{{ item.icon }} transition-colors duration-100"></i>
+                        class="{{ item.icon }} transition-colors duration-100 "></i>
                 </div>
+
                 <div class="flex flex-col leading-normal">
                     <h5 class="mb-2 text-base font-bold tracking-tight text-neutral-900 dark:text-white">
                         {{ item.title }}
                     </h5>
-                    <p class="text-sm font-normal text-neutral-700 dark:text-neutral-500">
+
+                    <p class="text-sm font-medium text-neutral-700 dark:text-neutral-500">
                         {{ item.description }}
                     </p>
                 </div>
             </button>
         </ng-template>
     </section>
+
+    <app-update-name></app-update-name>
 </div>

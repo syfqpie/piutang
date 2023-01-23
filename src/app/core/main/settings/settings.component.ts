@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { Profile } from 'src/app/shared/services/profile/profile.model';
 import { ProfileService } from 'src/app/shared/services/profile/profile.service';
+import { UpdateNameComponent } from 'src/app/components/settings/update-name/update-name.component';
 
 interface SettingsConfig {
 	title: string,
@@ -17,7 +19,7 @@ interface SettingsConfig {
 	templateUrl: './settings.component.html',
 	styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
 	// Data
 	profile: Profile | null = null
@@ -48,6 +50,12 @@ export class SettingsComponent implements OnInit {
 		}
 	]
 
+	// Child
+	@ViewChild(UpdateNameComponent) updateNameComponent: UpdateNameComponent | null = null
+
+	// Subscribe
+	subscription: Subscription = new Subscription()
+
 	constructor(
 		private router: Router,
 		private profileSvc: ProfileService,
@@ -56,10 +64,21 @@ export class SettingsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.profile = this.profileSvc.currentProfile
+		this.subscription.add(
+			this.profileSvc.profileSubject.subscribe(
+				(data) => { this.profile = data }
+			)
+		)
+	}
+
+	ngOnDestroy(): void {
+		if (this.subscription) {
+			this.subscription.unsubscribe()
+		}
 	}
 
 	onUpdateName() {
-		console.log('onUpdateName')
+		if (this.updateNameComponent) this.updateNameComponent.toggle()
 	}
 
 	onChangePassword() {
