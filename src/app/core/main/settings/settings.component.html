@@ -1,5 +1,5 @@
 <div class="p-4 px-2 md:px-0 max-w-xl mx-auto h-[calc(100vh-15rem)] flex flex-col justify-center">
-    <section class="grid grid-cols-1 gap-2 text-center mb-4">
+    <section class="grid grid-cols-1 gap-4 text-center mb-4">
         <div>
             <img
                 class="h-32 w-32 mx-auto"
@@ -8,96 +8,38 @@
         <div>
             <h3
                 class="text-2xl font-medium text-ellipsis
-                text-neutral-700 dark:text-neutral-200">
+                text-neutral-700 dark:text-neutral-500">
                 {{ profile?.name }}
         </h3>
         </div>
     </section>
 
-    <section class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
-        <button
-            class="flex space-x-3 items-start border
-            rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
-            cursor-pointer bg-white border-neutral-100 hover:bg-neutral-100
-            focus:outline focus:outline-2 focus:outline-emerald-500
-            dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
-            dark:focus:outline-emerald-800 dark:focus:border-emerald-500">
-            <div class="text-center items-start">
-                <i 
-                    class="fa-regular fa-id-card transition-colors duration-100"></i>
-            </div>
-            <div class="flex flex-col leading-normal">
-                <h5 class="mb-2 text-base font-bold tracking-tight text-neutral-900 dark:text-white">
-                    Update name
-                </h5>
-                <p class="text-sm font-normal text-neutral-700 dark:text-neutral-500">
-                    Edit your name here
-                </p>
-            </div>
-        </button>
-
-        <button
-            class="flex space-x-3 items-start border
-            rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
-            cursor-pointer bg-white border-neutral-100 hover:bg-neutral-100
-            focus:outline focus:outline-2 focus:outline-emerald-500
-            dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
-            dark:focus:outline-emerald-800 dark:focus:border-emerald-500
-            transition-colors duration-100">
-            <div class="text-center items-start">
-                <i
-                    class="fa-solid fa-unlock-keyhole transition-colors duration-100"></i>
-            </div>
-            <div class="flex flex-col leading-normal">
-                <h5 class="mb-2 text-base font-bold tracking-tight text-neutral-900 dark:text-white">
-                    Change password
-                </h5>
-                <p class="text-sm font-normal text-neutral-700 dark:text-neutral-500">
-                    Change your password
-                </p>
-            </div>
-        </button>
-
-        <button
-            class="flex space-x-3 items-start border
-            rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
-            cursor-pointer bg-white border-neutral-100 hover:bg-neutral-100
-            focus:outline focus:outline-2 focus:outline-emerald-500
-            dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
-            dark:focus:outline-emerald-800 dark:focus:border-emerald-500">
-            <div class="text-center items-start">
-                <i 
-                    class="fa-solid fa-question transition-colors duration-100"></i>
-            </div>
-            <div class="flex flex-col leading-normal">
-                <h5 class="mb-2 text-base font-bold tracking-tight text-neutral-900 dark:text-white">
-                    About
-                </h5>
-                <p class="text-sm font-normal text-neutral-700 dark:text-neutral-500">
-                    App information
-                </p>
-            </div>
-        </button>
-
-        <button
-            class="flex space-x-3 items-start border
-            rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
-            cursor-pointer bg-white border-neutral-100 hover:bg-neutral-100
-            focus:outline focus:outline-2 focus:outline-emerald-500
-            dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
-            dark:focus:outline-emerald-800 dark:focus:border-emerald-500">
-            <div class="text-center items-start">
-                <i 
-                    class="fa-solid fa-arrow-right-from-bracket transition-colors duration-100"></i>
-            </div>
-            <div class="flex flex-col leading-normal">
-                <h5 class="mb-2 text-base font-bold tracking-tight text-neutral-900 dark:text-white">
-                    Logout
-                </h5>
-                <p class="text-sm font-normal text-neutral-700 dark:text-neutral-500">
-                    Sign out of system
-                </p>
-            </div>
-        </button>
+    <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+        <ng-template
+            ngFor
+            let-item
+            [ngForOf]="settings">
+            <button
+                class="flex space-x-3 items-start border
+                rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
+                cursor-pointer bg-white border-neutral-100 hover:bg-neutral-100
+                focus:outline focus:outline-2 focus:outline-emerald-500
+                dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
+                dark:focus:outline-emerald-800 dark:focus:border-emerald-500"
+                (click)="item.handler()">
+                <div class="text-center items-start">
+                    <i 
+                        class="{{ item.icon }} transition-colors duration-100"></i>
+                </div>
+                <div class="flex flex-col leading-normal">
+                    <h5 class="mb-2 text-base font-bold tracking-tight text-neutral-900 dark:text-white">
+                        {{ item.title }}
+                    </h5>
+                    <p class="text-sm font-normal text-neutral-700 dark:text-neutral-500">
+                        {{ item.description }}
+                    </p>
+                </div>
+            </button>
+        </ng-template>
     </section>
 </div>
