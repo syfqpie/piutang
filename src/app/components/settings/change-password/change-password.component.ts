@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 export class ChangePasswordComponent implements OnInit {
 
   // Data
-  isShow: boolean = true
+  isShow: boolean = false
 
   // Form
   form: FormGroup = new FormGroup({
