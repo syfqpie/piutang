@@ -5,8 +5,9 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { Profile } from 'src/app/shared/services/profile/profile.model';
 import { ProfileService } from 'src/app/shared/services/profile/profile.service';
-import { UpdateNameComponent } from 'src/app/components/settings/update-name/update-name.component';
+import { AboutComponent } from 'src/app/components/settings/about/about.component';
 import { ChangePasswordComponent } from 'src/app/components/settings/change-password/change-password.component';
+import { UpdateNameComponent } from 'src/app/components/settings/update-name/update-name.component';
 
 interface SettingsConfig {
 	title: string,
@@ -52,8 +53,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	]
 
 	// Child
-	@ViewChild(UpdateNameComponent) updateNameComponent: UpdateNameComponent | null = null
+	@ViewChild(AboutComponent) aboutComponent: AboutComponent | null = null
 	@ViewChild(ChangePasswordComponent) changePasswordComponent: ChangePasswordComponent | null = null
+	@ViewChild(UpdateNameComponent) updateNameComponent: UpdateNameComponent | null = null
 
 	// Subscribe
 	subscription: Subscription = new Subscription()
@@ -88,7 +90,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	}
 
 	onAbout() {
-		console.log('onAbout')
+		if (this.aboutComponent) this.aboutComponent.toggle()
 	}
 
 	onLogout() {

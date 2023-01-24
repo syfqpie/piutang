@@ -13,6 +13,7 @@ import { MiniCalendarPickerComponent } from '../../components/common/mini-calend
 import { ModalComponent } from '../../components/common/modal/modal.component';
 import { UpdateNameComponent } from '../../components/settings/update-name/update-name.component';
 import { ChangePasswordComponent } from '../../components/settings/change-password/change-password.component';
+import { AboutComponent } from '../../components/settings/about/about.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ChangePasswordComponent } from '../../components/settings/change-passwo
     MiniCalendarPickerComponent,
     ModalComponent,
     UpdateNameComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AboutComponent
   ],
   imports: [
     CommonModule,

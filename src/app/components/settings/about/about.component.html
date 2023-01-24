@@ -1,0 +1,45 @@
+<app-modal
+    [isShow]="isShow"
+    [isHeaderEnabled]="false"
+    [bodyTpl]="bodyTpl"
+    (onToggle)="toggle()">
+    <ng-template #bodyTpl>
+        <div class="p-6">
+
+            <div class="w-full flex justify-center mb-4">
+                <img
+                    class="w-52"
+                    src="assets/img/poket-logo.png" />
+            </div>
+
+            <div class="w-full text-center">
+                <h3 class="mb-0 font-bold">POKET</h3>
+                <p class="mb-0 font-light text-xs">v{{ version }}</p>
+                <p class="mb-4 font-light text-xs text-neutral-500">
+                    Developed by:
+                    <a
+                        class="font-semibold hover:text-emerald-700
+                        dark:hover:text-emerald-500"
+                        href="https://github.com/syfqpie/poket"
+                        target="_blank">
+                        syfqpie
+                    </a>
+                </p>
+
+                <button
+                    type="button"
+                    class="px-3 py-2 rounded-lg font-medium text-xs
+                    border text-center text-white bg-emerald-700 hover:bg-emerald-800
+                    focus:outline focus:outline-2 focus:outline-emerald-200
+                    dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:border-emerald-500
+                    dark:focus:border-emerald-500 dark:border-emerald-600 
+                    dark:focus:outline-emerald-800 disabled:cursor-not-allowed"
+                    (click)="toggle()">
+                    <span>
+                        Back
+                    </span>
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</app-modal>
