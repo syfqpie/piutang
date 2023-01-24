@@ -1,6 +1,8 @@
-export class Human {
-    constructor(
-        public id: number,
-        public name: string
-    ) {}
+/**
+ * Human base class
+ */
+export interface Human {
+    id: string,
+    name: string,
+    profileId: string
 }

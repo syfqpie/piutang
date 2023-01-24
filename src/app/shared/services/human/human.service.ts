@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+
+import { AuthService } from '../auth/auth.service';
 import { Human } from './human.model';
+
+const HUMANS = 'humans'
 
 @Injectable({
   providedIn: 'root'
@@ -8,23 +12,29 @@ export class HumanService {
 
   // Data
   public human: Human | null = null
-  public humans: Human[] = [
-		{ id: 1, name: 'Abu Yow' },
-		{ id: 2, name: 'Mikky Chan' },
-		{ id: 3, name: 'Ahmad Johcena' },
-		{ id: 4, name: 'Cynthia labu' },
-		{ id: 5, name: 'Ben mamat' }
-	]
+  public humans: Human[] = []
 
-  constructor() { }
+  constructor(
+    private authSvc: AuthService
+  ) { }
 
   /**
    * List all human records
    * 
    * @returns latest humans list
    */
-  list(): Human[] {
-    return this.humans
+  async query(name: string) {
+    return await this.authSvc.supabase
+      .from(HUMANS)
+      .select('*')
+      .ilike('name', `%${name}%`)
+      .then(({ data, error }) => {
+				if (data) {
+				  this.humans = data
+				}
+
+				if (error) throw error
+			})
   }
 
   /**
@@ -33,26 +43,29 @@ export class HumanService {
    * @param id Human id
    * @returns a human record
    */
-  retrieve(id: number): Human | null {
+  retrieve(id: string): Human | null {
     return this.humans.find((human) => human && human.id === id) ?? null
   }
 
   /**
-   * 
-   * @param name 
-   * @returns 
-   */
-  add(name: string): Human {
-    const ordered: Human[] = this.humans.sort((one, two) => (one.id > two.id ? -1 : 1))
-    const indexTail: number = ordered.length > 0 ? ordered[0].id : 0
-    const humanToAppend: Human = {
-      id: indexTail + 1,
-      name: name
-    }
+	 * Create new human for user profile
+	 * 
+	 * @returns supabase insert human
+	 */
+	async create(payload: any) {
+		return await this.authSvc.supabase
+			.from(HUMANS)
+			.insert(payload)
+      .select()
+			.then(({ data, error }) => {
+				if (data && data.length === 1) {
+				  this.human = data[0]
+				}
 
-    this.humans.push(humanToAppend)
-
-    return humanToAppend
-  }
+				if (error || !this.human) {
+					throw error
+				}
+			})
+	}
 
 }
