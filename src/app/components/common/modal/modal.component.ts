@@ -14,6 +14,9 @@ export class ModalComponent implements OnInit {
 	isShow: boolean = true
 
   @Input()
+  isHeaderEnabled: boolean = true
+
+  @Input()
   size: Size = 'sm'
 
   @Input()
