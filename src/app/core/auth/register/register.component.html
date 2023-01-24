@@ -1,5 +1,10 @@
 <div 
     class="p-8 w-full rounded-xl shadow-xl bg-white dark:bg-neutral-800">
+    <div class="mb-2 flex w-full justify-center">
+        <img
+            class="w-32"
+            src="assets/img/poket-logo.png" />
+    </div>
     <h3 class="mb-4 text-2xl text-center font-semibold">
         Create your account
     </h3>
@@ -24,6 +29,7 @@
                     <i class="fa-solid fa-envelope"></i>
                 </span>
                 <input
+                    id="regEmail"
                     type="email"
                     class="block w-full p-2.5 rounded-lg rounded-l-none text-sm
                     border-none outline-none bg-neutral-50 text-neutral-900      
@@ -69,6 +75,7 @@
                     <i class="fa-solid fa-lock"></i>
                 </span>
                 <input
+                    id="regPassword"
                     type="password"
                     class="block w-full p-2.5 rounded-lg rounded-l-none text-sm
                     border-none outline-none bg-neutral-50 text-neutral-900      
@@ -101,6 +108,62 @@
                     </ng-template>
                 </ng-container>
             </ng-template>
+        </div>
+
+        <div class="mb-4 w-full">
+            <ng-container formGroupName="options">
+                <ng-container formGroupName="data">
+                    <div
+                        class="flex group focus-within:outline
+                        rounded-lg border border-neutral-300 bg-neutral-200
+                        focus-within:outline-2 focus-within:!outline-emerald-500
+                        dark:bg-neutral-800 dark:border-neutral-600
+                        dark:focus-within:!outline-emerald-800
+                        dark:focus-within:!border-emerald-500
+                        transition-colors duration-100">
+                        <span
+                            class="inline-flex items-center px-2.5
+                            text-sm text-neutral-900 bg-neutral-200
+                            rounded-l-lg border-none outline-none
+                            dark:bg-neutral-700 dark:text-neutral-500">
+                            <i class="fa-regular fa-id-card"></i>
+                        </span>
+                        <input
+                            id="regName"
+                            type="text"
+                            class="block w-full p-2.5 rounded-lg rounded-l-none text-sm
+                            border-none outline-none bg-neutral-50 text-neutral-900      
+                            dark:bg-neutral-800 dark:text-white
+                            dark:placeholder-neutral-400"
+                            placeholder="Name"
+                            formControlName="name"
+                            (keyup.enter)="onSubmit()"
+                            [ngClass]="{
+                                'is-invalid': optionsGroup.controls['name'].touched &&
+                                optionsGroup.controls['name'].errors,
+                                'is-valid': optionsGroup.controls['name'].touched &&
+                                !optionsGroup.controls['name'].errors
+                            }">
+                    </div>
+
+                    <ng-template
+                        [ngIf]="optionsGroup.controls['name'].errors &&
+                        (optionsGroup.controls['name'].dirty ||
+                        optionsGroup.controls['name'].touched)">
+                        <ng-container *ngFor="let message of formMessages['name']">
+                            <ng-template
+                                [ngIf]="optionsGroup.controls['name'].hasError(message.type) &&
+                                (optionsGroup.controls['name'].dirty ||
+                                optionsGroup.controls['name'].touched)">
+                                <p class="mt-2 text-xs text-red-600 dark:text-red-500">
+                                    <span class="font-medium">Oops!</span>
+                                    {{ message.message }}
+                                </p>
+                            </ng-template>
+                        </ng-container>
+                    </ng-template>
+                </ng-container>
+            </ng-container>
         </div>
 
         <div class="mb-0 w-full">

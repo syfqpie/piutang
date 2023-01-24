@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthApiError } from '@supabase/supabase-js';
 import { Subscription } from 'rxjs';
 
+import { AuthApiError } from '@supabase/supabase-js';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
@@ -16,7 +16,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
 	// Form
 	public registerForm: FormGroup = new FormGroup({
 		email: new FormControl(null),
-		password: new FormControl(null)
+		password: new FormControl(null),
+		options: new FormGroup({
+			data: new FormGroup({
+				name: new FormControl(null)
+			})
+		})
 	})
 	public formMessages = {
 		email: [
@@ -26,6 +31,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		password: [
 			{ type: 'required', message: 'Password is required' },
 			{ type: 'minlength', message: 'Password must contain at least 8 character' }
+		],
+		name: [
+			{ type: 'required', message: 'Name is required' }
 		]
 	}
 
@@ -51,6 +59,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	get optionsGroup(): FormGroup {
+		return this.registerForm.controls['options'].get('data') as FormGroup
+	}
+
 	/**
 	 * Initialize form
 	 */
@@ -63,7 +75,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
 			password: new FormControl(null, Validators.compose([
 				Validators.required,
 				Validators.minLength(8)
-			]))
+			])),
+			options: this.fb.group({
+				data: this.fb.group({
+					name: new FormControl(null, Validators.compose([
+						Validators.required
+					]))
+				})
+			})
 		})
 	}
 
