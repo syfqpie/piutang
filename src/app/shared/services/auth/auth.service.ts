@@ -5,6 +5,7 @@ import {
 	SignInWithPasswordCredentials,
 	SignUpWithPasswordCredentials,
 	SupabaseClient,
+	UserAttributes,
 } from '@supabase/supabase-js';
 
 import { environment } from 'src/environments/environment';
@@ -118,6 +119,27 @@ export class AuthService {
 			redirectTo: `${environment.baseDomain}home`
 		}
 		return await this.supabase.auth.resetPasswordForEmail(email, redirectTo)
+			.then(({ error }) => {
+				this._session = undefined
+
+				if (error) {
+					throw error
+				}
+			})
+	}
+
+	/**
+	 * Update user account attributes
+	 * 
+	 * TODO:
+	 * 	1. Handle different errors
+	 * 
+	 * @param payload user attributes
+	 * 
+	 * @returns supabase updateUser
+	 */
+	async patchUser(payload: UserAttributes) {
+		return await this.supabase.auth.updateUser(payload)
 			.then(({ error }) => {
 				this._session = undefined
 
