@@ -31,7 +31,9 @@ export class HumanService {
       .then(({ data, error }) => {
 				if (data) {
 				  this.humans = data
-				}
+				} else {
+          this.humans = []
+        }
 
 				if (error) throw error
 			})
