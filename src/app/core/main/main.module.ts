@@ -15,6 +15,8 @@ import { UpdateNameComponent } from '../../components/settings/update-name/updat
 import { ChangePasswordComponent } from '../../components/settings/change-password/change-password.component';
 import { AboutComponent } from '../../components/settings/about/about.component';
 
+import { ClickOutsideDirective } from '../../shared/directives/clicks/click-outside.directive';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -25,7 +27,8 @@ import { AboutComponent } from '../../components/settings/about/about.component'
     ModalComponent,
     UpdateNameComponent,
     ChangePasswordComponent,
-    AboutComponent
+    AboutComponent,
+    ClickOutsideDirective
   ],
   imports: [
     CommonModule,
