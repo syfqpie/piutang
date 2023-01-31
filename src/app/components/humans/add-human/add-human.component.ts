@@ -14,16 +14,13 @@ const DEFAULT_PLACEHOLDER = 'Search name'
 })
 export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 
-	// Input
-	@Input()
-	isSelectOpen: boolean = true
-
 	// Output
 	@Output()
 	onSelect: EventEmitter<Human> = new EventEmitter()
 
 	// Checker
 	public isLoading: boolean = false
+	public isFocused: boolean = false
 
 	// Data
 	public results: Human[] = []
@@ -64,6 +61,8 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 					}
 				)
 		)
+
+		this.initHumans()
 	}
 
 	ngOnDestroy(): void {
@@ -81,13 +80,30 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		if (this.humanForm.value &&
 			String(this.humanForm.value).length >= 3) {
-			this.results = this.filterHumans(this.humanForm.value)
+			try {
+				await this.humanSvc.query(this.humanForm.value)
+				this.results = this.humanSvc.humans
+			} catch (err) {
+				// handle error here
+			} finally {
+				this.isLoading = false
+			}
+
 		} else {
 			// Reset results
 			this.results = []
+			this.isLoading = false
 		}
+	}
 
-		this.isLoading = false
+	async initHumans() {
+		// Set initial value
+		try {
+			await this.humanSvc.read()
+			this.results = this.humanSvc.humans
+		} catch (err) {
+			// handle error here
+		}
 	}
 
 	/**
@@ -109,9 +125,18 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 	 * Add new human to saved list
 	 */
 	public onAddNew() {
-		if (this.humanForm.value) {
-			const newHuman = this.humanSvc.add(this.humanForm.value)
-			this.onSelectHuman(newHuman)
+		if (this.humanForm.value && this.humanForm.valid) this.doAddNew()
+	}
+
+	private async doAddNew() {
+		this.isLoading = true
+		try {
+			await this.humanSvc.create({ name: this.humanForm.value })
+		} catch(err) {
+			console.warn(err, this.humanForm)
+		} finally {
+			if (this.humanSvc.human) this.onSelectHuman(this.humanSvc.human)
+			this.isLoading = false
 		}
 	}
 
@@ -123,7 +148,6 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.selectedHuman = selected
 		this.results = []
 		this.humanForm.reset()
-		this.isSelectOpen = !this.isSelectOpen
 		this.placeholderText = this.selectedHuman.name
 		return this.onSelect.emit(this.selectedHuman)
 	}
@@ -133,6 +157,7 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 	 */
 	public onFocusInput($event: any) {
 		this.placeholderText = DEFAULT_PLACEHOLDER
+		this.isFocused = true
 	}
 
 	/**
@@ -144,6 +169,8 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 		} else {
 			this.placeholderText = DEFAULT_PLACEHOLDER
 		}
+		this.humanForm.reset()
+		this.isFocused = false
 	}
 
 }
