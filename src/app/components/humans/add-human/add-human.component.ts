@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 
@@ -41,12 +41,23 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 	// Subscription
 	private subscription: Subscription = new Subscription
 
+	get isFormErrorDirty(): boolean {
+		return !!this.humanForm.errors && this.humanForm.dirty
+	}
+
+	get isValidResults(): boolean {
+		return this.results.length === 0 && !this.humanForm.errors && this.humanForm.dirty
+	}
+
+	get isCanOpen(): boolean {
+		return this.isFormErrorDirty || this.results.length > 0 || this.isValidResults
+	}
+
 	constructor(
 		private humanSvc: HumanService
 	) { }
 
-	ngOnInit(): void {
-	}
+	ngOnInit(): void { }
 
 	ngAfterViewInit(): void {
 		// Subscribe to form changes
@@ -91,7 +102,7 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		} else {
 			// Reset results
-			this.results = []
+			this.results = this.humanSvc.humans
 			this.isLoading = false
 		}
 	}
