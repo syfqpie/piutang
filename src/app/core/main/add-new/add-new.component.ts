@@ -1,19 +1,26 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { DebtType } from 'src/app/shared/services/debt/debt.model';
 import { Human } from 'src/app/shared/services/human/human.model';
+import { Profile } from 'src/app/shared/services/profile/profile.model';
+import { DebtService } from 'src/app/shared/services/debt/debt.service';
+import { ProfileService } from 'src/app/shared/services/profile/profile.service';
 
 @Component({
 	selector: 'app-add-new',
 	templateUrl: './add-new.component.html',
 	styleUrls: ['./add-new.component.css']
 })
-export class AddNewComponent implements OnInit {
+export class AddNewComponent implements OnInit, OnDestroy {
+
+	// Data
+	profile: Profile | null = null
 
 	// Predefined
-	public DebtType = DebtType
+	DebtType = DebtType
 
 	/**
 	 * CurrencyPipe stuff's here.
@@ -26,23 +33,23 @@ export class AddNewComponent implements OnInit {
 	 * 
 	 * ISO 4217 currency code list https://en.wikipedia.org/wiki/ISO_4217
 	 */
-	public readonly currCode = 'MYR'
-	public readonly currDisplay = 'symbol-narrow'
-	public readonly currDigitsInfo = '1.2-2'
+	readonly currCode = 'MYR'
+	readonly currDisplay = 'symbol-narrow'
+	readonly currDigitsInfo = '1.2-2'
 
 	// Form
-	public createForm = new FormGroup({
+	createForm = new FormGroup({
 		type: new FormControl(null),
 		human: new FormControl(null),
 		notes: new FormControl(null),
 		amount: new FormControl(null),
-		dueAt: new FormControl(null)
+		due_at: new FormControl(null)
 	})
-	public formMessages = {
+	formMessages = {
 		type: [
 			{ type: 'required', message: 'Need a type' }
 		],
-		human: [
+		human_id: [
 			{ type: 'required', message: 'Need someone' }
 		],
 		notes: [
@@ -53,22 +60,40 @@ export class AddNewComponent implements OnInit {
 			{ type: 'min', message: 'That\'s impossible...' }
 		]
 	}
-	public selectedHuman: Human | null = null
+	selectedHuman: Human | null = null
 
 	// Checker
-	public isLoading: boolean = false
-	public isShowCalendar: boolean = false
+	isLoading: boolean = false
+	isShowCalendar: boolean = false
 
 	// Event
-	public onResetEvent: EventEmitter<boolean> = new EventEmitter()
+	onResetEvent: EventEmitter<boolean> = new EventEmitter()
+
+	// Subscribe
+	subscription: Subscription = new Subscription()
 
 	constructor(
 		private fb: FormBuilder,
-		private router: Router
+		private router: Router,
+		private profileSvc: ProfileService,
+		private debtSvc: DebtService
 	) { }
 
 	ngOnInit(): void {
 		this.initForm()
+
+		this.profile = this.profileSvc.currentProfile
+		this.subscription.add(
+			this.profileSvc.profileSubject.subscribe(
+				(data) => { this.profile = data }
+			)
+		)
+	}
+
+	ngOnDestroy(): void {
+		if (this.subscription) {
+			this.subscription.unsubscribe()
+		}
 	}
 
 	initForm() {
@@ -76,7 +101,7 @@ export class AddNewComponent implements OnInit {
 			type: new FormControl(DebtType.LEND, Validators.compose([
 				Validators.required
       		])),
-			human: new FormControl(null, Validators.compose([
+			human_id: new FormControl(null, Validators.compose([
 				Validators.required
       		])),
 			notes: new FormControl(null, Validators.compose([
@@ -87,21 +112,29 @@ export class AddNewComponent implements OnInit {
 				Validators.required,
 				Validators.min(0.1)
 			])),
-			dueAt: new FormControl(null)
+			due_at: new FormControl(null)
 		})
 	}
 
 	onSubmit() {
-		/**
-		 * Add submit logic here
-		 */
-		this.createForm.markAllAsTouched()
+		if (!this.createForm.touched) this.createForm.markAllAsTouched()
+		if (this.createForm.valid) this.doSave()
+	}
 
-		if (this.createForm.valid) {
-			// this.isLoading = true
-			this.router.navigate(['/home'])
+	async doSave() {
+		this.isLoading = true
+		let isError = false
+		try {
+			await this.debtSvc.create(this.createForm.value)
+		} catch (err) {
+			// handler error
+			isError = true
+		} finally {
+			this.isLoading = false
+			if (!isError) {
+				this.router.navigate(['/home'])
+			}
 		}
-
 	}
 
 	toggleCalendar() {
@@ -109,12 +142,13 @@ export class AddNewComponent implements OnInit {
 	}
 
 	onSelectDue(selected: Date) {
-		this.createForm.controls['dueAt'].patchValue(selected)
+		this.createForm.controls['due_at'].patchValue(selected)
 		this.toggleCalendar()
+		console.log(this.createForm.value.due_at)
 	}
 
 	onResetDue() {
-		this.createForm.controls['dueAt'].patchValue(null)
+		this.createForm.controls['due_at'].patchValue(null)
 		this.onResetEvent.emit(true)
 	}
 
@@ -124,7 +158,7 @@ export class AddNewComponent implements OnInit {
 
 	onSelectHuman(selected: Human) {
 		this.selectedHuman = selected
-		this.createForm.controls['human'].patchValue(this.selectedHuman.id)
+		this.createForm.controls['human_id'].patchValue(this.selectedHuman.id)
 	}
 
 }

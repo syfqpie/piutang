@@ -40,13 +40,13 @@
             </span>
 
             <span
-                *ngIf="createForm.value.dueAt"
+                *ngIf="createForm.value.due_at"
                 class="bg-neutral-100 text-neutral-800 text-xs
                 font-semibold mr-2 px-2.5 py-0.5 rounded
                 dark:bg-neutral-700 dark:text-neutral-300
                 transition duration-100">
                 <i class="fa-solid fa-hourglass-start mr-1"></i>
-                {{ createForm.value.dueAt | date:'dd/MM/yyyy' }}
+                {{ createForm.value.due_at | date:'dd/MM/yyyy' }}
             </span>
         </div>
 
@@ -61,7 +61,7 @@
                     <p
                         class="text-sm font-medium text-ellipsis
                         text-neutral-700 dark:text-neutral-200">
-                        Ahmad
+                        {{ profile?.name }}
                     </p>
                 </div>
             </div>
@@ -247,9 +247,9 @@
                 <span
                     [ngClass]="{
                         'text-red-600 dark:text-red-500':
-                            createForm.controls['human'].errors &&
-                            (createForm.controls['human'].dirty ||
-                            createForm.controls['human'].touched)
+                            createForm.controls['human_id'].errors &&
+                            (createForm.controls['human_id'].dirty ||
+                            createForm.controls['human_id'].touched)
                     }">*</span>
             </label>
             <pkt-add-human
@@ -257,14 +257,14 @@
             </pkt-add-human>
 
             <ng-template
-                [ngIf]="createForm.controls['human'].errors &&
-                (createForm.controls['human'].dirty ||
-                createForm.controls['human'].touched)">
-                <ng-container *ngFor="let message of formMessages['human']">
+                [ngIf]="createForm.controls['human_id'].errors &&
+                (createForm.controls['human_id'].dirty ||
+                createForm.controls['human_id'].touched)">
+                <ng-container *ngFor="let message of formMessages['human_id']">
                     <ng-template
-                        [ngIf]="createForm.controls['human'].hasError(message.type) &&
-                        (createForm.controls['human'].dirty ||
-                        createForm.controls['human'].touched)">
+                        [ngIf]="createForm.controls['human_id'].hasError(message.type) &&
+                        (createForm.controls['human_id'].dirty ||
+                        createForm.controls['human_id'].touched)">
                         <p class="mt-2 text-sm text-red-600 dark:text-red-500">
                             <span class="font-medium">Oops!</span>
                             {{ message.message }}
@@ -303,7 +303,7 @@
                     dark:bg-neutral-700 dark:placeholder-neutral-400 dark:text-white 
                     disabled:cursor-not-allowed"
                     readonly
-                    value="{{ createForm.value['dueAt'] | date:'EEEE, d MMMM y' }}"
+                    value="{{ createForm.value['due_at'] | date:'EEEE, d MMMM y' }}"
                     (click)="toggleCalendar()">
                 <button
                     class="inline-flex items-center px-2.5
@@ -311,7 +311,7 @@
                     border-none outline-none disabled:cursor-not-allowed
                     dark:bg-neutral-700 dark:text-neutral-400
                     dark:border-neutral-600 dark:focus:text-emerald-500"
-                    [disabled]="!createForm.value.dueAt"
+                    [disabled]="!createForm.value.due_at"
                     (click)="onResetDue()">
                     <i class="fa-solid fa-circle-xmark"></i>
                 </button> 
