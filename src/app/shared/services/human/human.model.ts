@@ -4,5 +4,5 @@
 export interface Human {
     id: string,
     name: string,
-    profileId: string
+    profile_id: string
 }
