@@ -127,7 +127,7 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 		const lowerCaseText: string = text.toLowerCase()
 		return this.humanSvc.humans.filter(
 			human => {
-				return human.name.toLowerCase().includes(lowerCaseText)
+				return human.name!.toLowerCase().includes(lowerCaseText)
 			}
 		)
 	}
@@ -159,7 +159,7 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.selectedHuman = selected
 		this.results = []
 		this.humanForm.reset()
-		this.placeholderText = this.selectedHuman.name
+		this.placeholderText = this.selectedHuman.name!
 		return this.onSelect.emit(this.selectedHuman)
 	}
 
@@ -176,7 +176,7 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 	 */
 	public onBlurInput($event: any) {
 		if (this.selectedHuman) {
-			this.placeholderText = this.selectedHuman.name
+			this.placeholderText = this.selectedHuman.name!
 		} else {
 			this.placeholderText = DEFAULT_PLACEHOLDER
 		}
