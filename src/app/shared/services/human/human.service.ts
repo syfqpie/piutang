@@ -19,6 +19,27 @@ export class HumanService {
   ) { }
 
   /**
+   * Read
+   * 
+   * @returns latest humans list
+   */
+  async read() {
+    return await this.authSvc.supabase
+      .from(HUMANS)
+      .select('*')
+      .limit(5)
+      .then(({ data, error }) => {
+				if (data) {
+				  this.humans = data
+				} else {
+          this.humans = []
+        }
+
+				if (error) throw error
+			})
+  }
+
+  /**
    * List all human records
    * 
    * @returns latest humans list
