@@ -35,7 +35,7 @@ export class DebtComponent implements OnInit {
 		this.isLoading = true
 		let isError = false
 		try {
-			await this.debtSvc.patch(form, this.currentDebt.id!)
+			await this.debtSvc.patch(this.currentDebt.id!, form)
 		} catch (err) {
 			// handler error
 			isError = true
