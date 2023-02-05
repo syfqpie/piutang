@@ -36,7 +36,7 @@ import { filter, Subscription } from 'rxjs';
 			</div>
 
 			<div class="col-span-1 flex justify-end">
-				<ng-container *ngIf="router.url !== '/new'">
+				<ng-container *ngIf="router.url !== '/new-entry'">
 					<button
 						type="button"
 						class="px-3 py-2 mr-3 md:mr-0 rounded-lg font-medium text-xs
@@ -45,7 +45,7 @@ import { filter, Subscription } from 'rxjs';
 						dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:border-emerald-500
 						dark:focus:border-emerald-500 dark:border-emerald-600 
 						dark:focus:outline-emerald-800 disabled:cursor-not-allowed"
-						[routerLink]="['/new']">
+						[routerLink]="['/new-entry']">
 						<i class="fa-solid fa-plus me-2"></i>
 						New
 					</button>

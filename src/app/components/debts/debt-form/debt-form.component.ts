@@ -115,7 +115,10 @@ export class DebtFormComponent implements OnInit, OnDestroy {
 		})
 
 		this.selectedHuman = this.debt?.human as Human ?? null
-		this.form.controls['human_id'].patchValue(this.selectedHuman.id)
+		
+		if (this.selectedHuman) {
+			this.form.controls['human_id'].patchValue(this.selectedHuman.id)
+		}
 	}
 
 	doSubmit() {

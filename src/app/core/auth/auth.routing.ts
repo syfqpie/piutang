@@ -25,5 +25,6 @@ export const AuthRoutes: Routes = [
         data: {
             title: 'Reset'
         }
-    }
+    },
+    { path: '**', redirectTo: 'login' }
 ]
