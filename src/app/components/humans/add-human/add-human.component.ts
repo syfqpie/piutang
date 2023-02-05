@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	EventEmitter,
+	Input,
+	OnDestroy,
+	OnInit,
+	Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 
@@ -14,6 +21,9 @@ const DEFAULT_PLACEHOLDER = 'Search name'
 })
 export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 
+	@Input()
+	selectedHuman: Human | null = null
+
 	// Output
 	@Output()
 	onSelect: EventEmitter<Human> = new EventEmitter()
@@ -24,7 +34,6 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	// Data
 	public results: Human[] = []
-	public selectedHuman: Human | null = null
 	public placeholderText: string = DEFAULT_PLACEHOLDER
 
 	// Form
@@ -57,7 +66,11 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 		private humanSvc: HumanService
 	) { }
 
-	ngOnInit(): void { }
+	ngOnInit(): void {
+		if (this.selectedHuman) {
+			this.placeholderText = this.selectedHuman.name!
+		}
+	}
 
 	ngAfterViewInit(): void {
 		// Subscribe to form changes
