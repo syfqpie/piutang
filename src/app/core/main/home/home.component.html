@@ -1,6 +1,8 @@
 <div class="pt-4 pb-14 px-2 md:px-0 max-w-xl mx-auto">
-    <section class="grid grid-cols-2 gap-4 my-12">
-        <div class="text-start border border-neutral-700 rounded-xl p-4 shadow-xl">
+    <section class="grid grid-cols-2 gap-4 mt-12 mb-4">
+        <div
+            class="p-4 text-start rounded-xl shadow-xl border bg-white
+            dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700">
             <h3 class="text-lg md:text-2xl font-bold mb-0">
                 {{ totalLended | currency:currCode:currDisplay:currDigitsInfo }}
             </h3>
@@ -9,7 +11,9 @@
             </p>
         </div>
 
-        <div class="text-start border border-neutral-700 rounded-xl p-4 shadow-xl">
+        <div
+            class="p-4 text-start rounded-xl shadow-xl border bg-white
+            dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700">
             <h3 class="text-lg md:text-2xl font-bold">
                 {{ totalBorrowed | currency:currCode:currDisplay:currDigitsInfo }}
             </h3>
@@ -30,8 +34,8 @@
             let-index="index"
             [ngForOf]="debts">
             <div
-                class="flex p-4 mb-4
-                shadow-xl rounded-xl dark:bg-neutral-800">
+                class="flex p-4 mb-4 border border-neutral-100 dark:border-neutral-700
+                bg-white shadow-xl rounded-xl dark:bg-neutral-800">
                 <div class="flex">
                     <ng-template
                         [ngIf]="item.type === DebtType.LEND"
