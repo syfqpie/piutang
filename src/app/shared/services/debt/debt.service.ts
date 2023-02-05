@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Debt, isDebt } from './debt.model';
+import { Debt } from './debt.model';
 import { AuthService } from '../auth/auth.service';
 
 const DEBTS = 'debts'
@@ -144,6 +144,25 @@ export class DebtService {
   
 				if (error) {
 					throw error
+				}
+			})
+	}
+
+	/**
+	 * Delete user debt
+	 * 
+	 * @returns supabase delete debt
+	 */
+	async delete(id: string) {
+		return await this.authSvc.supabase
+			.from(DEBTS)
+			.delete()
+			.eq('id', id)
+			.then(({ data, error }) => {
+				if (error) {
+					throw error
+				} else {
+					this.debt = null
 				}
 			})
 	}
