@@ -65,20 +65,31 @@ export class HomeComponent implements OnInit, OnDestroy {
 	async onTogglePaidDebt(id: string) {
 		const debtIsPaid = !this.debts.filter(item => item.id === id)[0].is_paid
 		let isError = false
+		
 		try {
 			await this.debtSvc.patch(id, { is_paid: debtIsPaid })
 		} catch (err) {
 			isError = true
 			console.error(err)
 		} finally {
-			if (!isError) {
-				this.getData()
-			}
+			if (!isError) this.getData()
 		}
 	}
 
 	onViewDebt(id: string) {
 		this.router.navigate(['/entry', id])
+	}
+
+	async onDeleteDebt(id: string) {
+		let isError = false
+
+		try {
+			await this.debtSvc.delete(id)
+		} catch (err) {
+			isError = true
+		} finally {
+			if (!isError) this.getData()
+		}
 	}
 
 }

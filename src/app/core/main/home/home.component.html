@@ -38,14 +38,14 @@
                         [ngIfElse]="isBorrow">
                         <img
                             alt="Lend"
-                            class="w-14 m-auto opacity-75"
+                            class="w-14 m-auto opacity-70"
                             src="assets/img/icons/withdrawal-green.png">
                     </ng-template>
 
                     <ng-template #isBorrow>
                         <img
                             alt="Borrow"
-                            class="w-14 m-auto  opacity-75"
+                            class="w-14 m-auto opacity-70"
                             src="assets/img/icons/deposit-red.png">
                     </ng-template>
                 </div>
@@ -104,7 +104,7 @@
                                 </p>
                             </div>
                         </ng-container>
-                      </div>
+                    </div>
                 </div>
 
                 <div class="flex flex-col gap-0 justify-center">
@@ -140,18 +140,30 @@
                         (click)="onViewDebt(item.id!)">
                         <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
                     </button>
+
+                    <button
+                        type="button"
+                        class="py-1 px-1.5 rounded-lg font-medium text-sm 
+                        text-center text-neutral-700
+                        hover:text-white hover:bg-neutral-700 focus:outline
+                        focus:outline-2 focus:outline-neutral-200 dark:text-neutral-500
+                        dark:hover:text-white
+                        dark:hover:bg-neutral-600 dark:focus:outline-neutral-800
+                        disabled:cursor-not-allowed"
+                        (click)="onDeleteDebt(item.id!)">
+                        <i class="fa-solid fa-circle-minus"></i>
+                    </button>
                 </div>
             </div>
         </ng-template>
 
-        <ng-container *ngIf="debts.length === 5">
-            <div class="w-full text-end">
-                <a
-                    class="text-xs underline italic cursor-pointer dark:text-neutral-500 mt-0 mb-2">
-                    More
-                    <i class="fa-solid fa-arrow-right-long"></i>
-                </a>
+        <ng-container *ngIf="debts.length === 0">
+            <div class="w-full flex">
+                <img
+                    class="m-auto w-36"
+                    src="assets/img/icons/ufo-neutral-500.png" />
             </div>
+            <p class="text-sm text-center dark:text-neutral-500">No entry found</p>
         </ng-container>
     </section>
 </div>
