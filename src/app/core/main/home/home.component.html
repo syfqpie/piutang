@@ -1,5 +1,5 @@
 <div class="pt-4 pb-14 px-2 md:px-0 max-w-xl mx-auto">
-    <section class="grid grid-cols-2 gap-4 mt-12 mb-4">
+    <section class="grid grid-cols-2 gap-4 mt-12 mb-3">
         <div
             class="p-4 text-start rounded-xl shadow-xl border bg-white
             dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700">
@@ -24,142 +24,16 @@
     </section>
 
     <section>
-        <h3 class="text-lg font-semibold text-emerald-500 mb-2">
+        <h3 class="text-lg font-semibold text-emerald-500 mb-3">
             Entries
         </h3>
 
-        <ng-template
-            ngFor
-            let-item
-            let-index="index"
-            [ngForOf]="debts">
-            <div
-                class="flex p-4 mb-4 border border-neutral-100 dark:border-neutral-700
-                bg-white shadow-xl rounded-xl dark:bg-neutral-800">
-                <div class="flex">
-                    <ng-template
-                        [ngIf]="item.type === DebtType.LEND"
-                        [ngIfElse]="isBorrow">
-                        <img
-                            alt="Lend"
-                            class="w-14 m-auto opacity-70"
-                            src="assets/img/icons/withdrawal-green.png">
-                    </ng-template>
-
-                    <ng-template #isBorrow>
-                        <img
-                            alt="Borrow"
-                            class="w-14 m-auto opacity-70"
-                            src="assets/img/icons/deposit-red.png">
-                    </ng-template>
-                </div>
-
-                <div class="flex-1 pl-4">
-                    <h3
-                        class="text-base font-semibold text-neutral-800
-                        dark:text-neutral-200 text-ellipsis overflow-hidden mb-0">
-                        {{ item.amount | currency:currCode:currDisplay:currDigitsInfo }}
-                        <span class="text-neutral-800 dark:text-neutral-500">
-                            | {{ $any(item.human).name }}
-                        </span>
-                    </h3>
-
-                    <p class="text-neutral-800 dark:text-neutral-500 text-sm line-clamp-1 mb-1">
-                        {{ item.notes }}
-                    </p>
-
-                    <div class="flex flex-wrap gap-1">
-                        <div>
-                            <p>
-                                <span
-                                    class="text-neutral-800 text-xs font-medium
-                                    px-1.5 py-0.5 rounded dark:text-neutral-500
-                                    border border-neutral-600">
-                                    <i class="fa-solid fa-hourglass-start mr-0.5 my-auto"></i>
-                                    {{ item.created_at | date: 'dd/MM/yyyy' }}
-                                </span>
-                            </p>
-                        </div>
-
-                        <ng-container *ngIf="item.due_at">
-                            <div>
-                                <p>
-                                    <span
-                                        class=" text-neutral-800 text-xs font-medium
-                                        px-1.5 py-0.5 rounded dark:text-neutral-500
-                                        border border-neutral-600">
-                                        <i class="fa-solid fa-hourglass-end mr-0.5 my-auto"></i>
-                                        {{ item.due_at | date: 'dd/MM/yyyy' }}
-                                    </span>
-                                </p>
-                            </div>
-                        </ng-container>
-
-                        <ng-container *ngIf="item.is_paid">
-                            <div>
-                                <p>
-                                    <span
-                                        class=" text-emerald-800 text-xs font-medium
-                                        px-1.5 py-0.5 rounded dark:text-emerald-500
-                                        border border-emerald-600">
-                                        <i class="fa-solid fa-circle-check mr-0.5 my-auto"></i>
-                                        Settle
-                                    </span>
-                                </p>
-                            </div>
-                        </ng-container>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-0 justify-center">
-                    <button
-                        type="button"
-                        class="py-1 px-1.5 rounded-lg font-medium text-sm 
-                        text-center text-neutral-700 focus:outline
-                        focus:outline-2 focus:outline-neutral-200 dark:text-neutral-500
-                        dark:focus:outline-neutral-800 disabled:cursor-not-allowed"
-                        [ngClass]="{ 
-                            'hover:text-white hover:bg-neutral-700 \
-                            dark:hover:text-white dark:hover:bg-neutral-600': !item.is_paid
-                        }"
-                        [disabled]="item.is_paid"
-                        (click)="onTogglePaidDebt(item.id!)">
-                        <i
-                            [ngClass]="{
-                                'fa-regular fa-circle': !item.is_paid,
-                                'fa-solid fa-circle-check text-emerald-500': item.is_paid
-                            }">
-                        </i>
-                    </button>
-
-                    <button
-                        type="button"
-                        class="py-1 px-1.5 rounded-lg font-medium text-sm 
-                        text-center text-neutral-700
-                        hover:text-white hover:bg-neutral-700 focus:outline
-                        focus:outline-2 focus:outline-neutral-200 dark:text-neutral-500
-                        dark:hover:text-white
-                        dark:hover:bg-neutral-600 dark:focus:outline-neutral-800
-                        disabled:cursor-not-allowed"
-                        (click)="onViewDebt(item.id!)">
-                        <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
-                    </button>
-
-                    <button
-                        type="button"
-                        class="py-1 px-1.5 rounded-lg font-medium text-sm 
-                        text-center text-neutral-700
-                        hover:text-white hover:bg-neutral-700 focus:outline
-                        focus:outline-2 focus:outline-neutral-200 dark:text-neutral-500
-                        dark:hover:text-white
-                        dark:hover:bg-neutral-600 dark:focus:outline-neutral-800
-                        disabled:cursor-not-allowed"
-                        (click)="onDeleteDebt(item.id!)">
-                        <i class="fa-solid fa-circle-minus"></i>
-                    </button>
-                </div>
-            </div>
-        </ng-template>
+        <app-debt-card
+            [debts]="debts"
+            (toggle)="onToggleDebt($event)"
+            (view)="onViewDebt($event)"
+            (delete)="onDeleteDebt($event)">
+        </app-debt-card>
 
         <ng-container *ngIf="debts.length === 0">
             <div class="w-full flex">

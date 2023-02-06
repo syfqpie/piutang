@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Debt, DebtType } from 'src/app/shared/services/debt/debt.model';
 import { DebtService } from 'src/app/shared/services/debt/debt.service';
 import { GlobalUtil } from 'src/app/shared/handlers/utils/global.utils';
-import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-home',
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 			this.debts = this.debtSvc.debts
 		} catch (err) {
 			// handle error
-			console.error(err)
+			this.debts = []
 		} finally {
 			this.calculateTotal()
 		}
@@ -62,15 +62,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 									 .reduce((sum, item) => sum + item.amount!, 0)
 	}
 
-	async onTogglePaidDebt(id: string) {
-		const debtIsPaid = !this.debts.filter(item => item.id === id)[0].is_paid
+	async onToggleDebt(id: string) {
+		const isPaid = !this.debts.filter(item => item.id === id)[0].is_paid
 		let isError = false
 		
 		try {
-			await this.debtSvc.patch(id, { is_paid: debtIsPaid })
+			await this.debtSvc.patch(id, { is_paid: isPaid })
 		} catch (err) {
 			isError = true
-			console.error(err)
 		} finally {
 			if (!isError) this.getData()
 		}
