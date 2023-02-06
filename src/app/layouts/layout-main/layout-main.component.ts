@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
 	selector: 'pui-layout-main',
@@ -18,12 +17,8 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 })
 export class LayoutMainComponent implements OnInit {
 
-	constructor(
-		private authSvc: AuthService
-	) { }
+	constructor() { }
 
-	ngOnInit(): void {
-		// this.authSvc.getSession().then(({ data }) => {console.log('test', data)})
-	}
+	ngOnInit(): void { }
 
 }

@@ -31,7 +31,8 @@ const routes: Routes = [
         loadChildren: () => import('./core/auth/auth.module').then(m => m.AuthModule)
       }
     ]
-  }
+  },
+  { path: '**', redirectTo: '/home' }
 ]
 
 @NgModule({
