@@ -154,12 +154,14 @@ export class AddHumanComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	private async doAddNew() {
 		this.isLoading = true
+		let isError = false
+
 		try {
 			await this.humanSvc.create({ name: this.humanForm.value })
 		} catch(err) {
-			console.warn(err, this.humanForm)
+			isError = true
 		} finally {
-			if (this.humanSvc.human) this.onSelectHuman(this.humanSvc.human)
+			if (!isError && this.humanSvc.human) this.onSelectHuman(this.humanSvc.human)
 			this.isLoading = false
 		}
 	}
