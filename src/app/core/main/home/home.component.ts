@@ -1,43 +1,94 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Debt, DebtType } from 'src/app/shared/services/debt/debt.model';
 import { DebtService } from 'src/app/shared/services/debt/debt.service';
+import { GlobalUtil } from 'src/app/shared/handlers/utils/global.utils';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+	selector: 'app-home',
+	templateUrl: './home.component.html',
+	styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  // Data
-  totalLended: number = 9999.20
-  totalBorrowed: number = 120.80
-  latestDebts: Debt[] = []
+	// Data
+	totalLended: number = 0
+	totalBorrowed: number = 0
+	debts: Debt[] = []
 
-  // Predfined
-  DebtType = DebtType
+	// Predfined
+	readonly DebtType = DebtType
+	readonly currCode = this.util.currencyCode
+	readonly currDisplay = this.util.currencyDisplay
+	readonly currDigitsInfo = this.util.currencyDigitsInfo
 
-  // Subscription
-  subscription: Subscription = new Subscription()
+	// Subscription
+	subscription: Subscription = new Subscription()
 
-  constructor(
-    private debtSvc: DebtService
-  ) { }
-                                     
-  ngOnInit(): void {
-    this.getData()
-  }
+	constructor(
+		private router: Router,
+		private util: GlobalUtil,
+		private debtSvc: DebtService
+	) { }
 
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe()
-    }
-  }
+	ngOnInit(): void {
+		this.getData()
+	}
 
-  getData() {
-    this.latestDebts = this.debtSvc.debts.slice(0, 5)
-  }
+	ngOnDestroy(): void {
+		if (this.subscription) {
+			this.subscription.unsubscribe()
+		}
+	}
+
+	async getData() {
+		try {
+			await this.debtSvc.readLatest()
+			this.debts = this.debtSvc.debts
+		} catch (err) {
+			// handle error
+			this.debts = []
+		} finally {
+			this.calculateTotal()
+		}
+	}
+
+	calculateTotal() {
+		this.totalLended = this.debts.filter(item => item.type === DebtType.LEND && !item.is_paid)
+									 .reduce((sum, item) => sum + item.amount!, 0)
+		this.totalBorrowed = this.debts.filter(item => item.type === DebtType.BORROW && !item.is_paid)
+									 .reduce((sum, item) => sum + item.amount!, 0)
+	}
+
+	async onToggleDebt(id: string) {
+		const isPaid = !this.debts.filter(item => item.id === id)[0].is_paid
+		let isError = false
+		
+		try {
+			await this.debtSvc.patch(id, { is_paid: isPaid })
+		} catch (err) {
+			isError = true
+		} finally {
+			if (!isError) this.getData()
+		}
+	}
+
+	onViewDebt(id: string) {
+		this.router.navigate(['/entry', id])
+	}
+
+	async onDeleteDebt(id: string) {
+		let isError = false
+
+		try {
+			await this.debtSvc.delete(id)
+		} catch (err) {
+			isError = true
+		} finally {
+			if (!isError) this.getData()
+		}
+	}
 
 }

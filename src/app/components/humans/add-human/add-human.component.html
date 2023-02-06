@@ -1,4 +1,6 @@
-<div class="w-full relative">
+<div
+    class="w-full relative"
+    (clickOutside)="onBlurInput($event)">
     <div
         class="flex group focus-within:outline relative
         rounded-lg border border-neutral-300 bg-neutral-200
@@ -21,7 +23,6 @@
             dark:bg-neutral-700 dark:text-white
             dark:placeholder-neutral-400"
             [placeholder]="placeholderText"
-            (blur)="onBlurInput($event)"
             (focus)="onFocusInput($event)"
             [formControl]="humanForm"
             [ngClass]="{
@@ -39,12 +40,7 @@
     </div>
 
     <ng-container
-        *ngIf="(!!humanForm.errors &&
-        humanForm.dirty) ||
-        results.length > 0 ||
-        (results.length === 0 &&
-        !humanForm.errors &&
-        humanForm.dirty)">
+        *ngIf="isFocused && isCanOpen">
         <div class="mt-2 text-sm shadow-lg absolute right-0 z-10 origin-top w-full">
             <ng-template
                 ngFor
@@ -91,7 +87,8 @@
                 *ngIf="results.length === 0 &&
                 !humanForm.errors &&
                 humanForm.dirty &&
-                humanForm.value">
+                humanForm.value &&
+                !isLoading">
                 <button
                     class="p-2 text-start w-full first:rounded-t-lg last:rounded-b-lg
                     border border-t-0 first:border-t bg-white border-neutral-100 focus:border-t
