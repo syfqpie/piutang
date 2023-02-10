@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { GlobalUtil } from 'src/app/shared/handlers/utils/global.utils';
+import { constants } from 'src/app/shared/handlers/utils/constants';
 import { Debt, DebtType } from 'src/app/shared/services/debt/debt.model';
 
 @Component({
@@ -26,13 +26,11 @@ export class DebtCardComponent implements OnInit {
 
 	// Predfined
 	readonly DebtType = DebtType
-	readonly curCode = this.util.currencyCode
-	readonly curDisplay = this.util.currencyDisplay
-	readonly curDigitsInfo = this.util.currencyDigitsInfo
+	readonly curCode = constants.CURRENCY.code
+	readonly curDisplay = constants.CURRENCY.display
+	readonly curDigitsInfo = constants.CURRENCY.digitsInfo
 
-	constructor(
-		private util: GlobalUtil
-	) { }
+	constructor() { }
 
 	ngOnInit(): void { }
 
