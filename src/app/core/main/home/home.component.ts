@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+import { constants } from 'src/app/shared/handlers/utils/constants';
 import { Debt, DebtType } from 'src/app/shared/services/debt/debt.model';
 import { DebtService } from 'src/app/shared/services/debt/debt.service';
-import { GlobalUtil } from 'src/app/shared/handlers/utils/global.utils';
 
 @Component({
 	selector: 'app-home',
@@ -20,16 +20,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	// Predfined
 	readonly DebtType = DebtType
-	readonly currCode = this.util.currencyCode
-	readonly currDisplay = this.util.currencyDisplay
-	readonly currDigitsInfo = this.util.currencyDigitsInfo
+	readonly curCode = constants.CURRENCY.code
+	readonly curDisplay = constants.CURRENCY.display
+	readonly curDigitsInfo = constants.CURRENCY.digitsInfo
 
 	// Subscription
 	subscription: Subscription = new Subscription()
 
 	constructor(
 		private router: Router,
-		private util: GlobalUtil,
 		private debtSvc: DebtService
 	) { }
 

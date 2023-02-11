@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
+import { constants } from 'src/app/shared/handlers/utils/constants';
 import { Debt, DebtType } from 'src/app/shared/services/debt/debt.model';
 import { Human } from 'src/app/shared/services/human/human.model';
 import { Profile } from 'src/app/shared/services/profile/profile.model';
 import { ProfileService } from 'src/app/shared/services/profile/profile.service';
-import { GlobalUtil } from 'src/app/shared/handlers/utils/global.utils';
 
 @Component({
 	selector: 'app-debt-form',
@@ -32,9 +32,9 @@ export class DebtFormComponent implements OnInit, OnDestroy {
 
 	// Predefined
 	readonly DebtType = DebtType
-	readonly currCode = this.util.currencyCode
-	readonly currDisplay = this.util.currencyDisplay
-	readonly currDigitsInfo = this.util.currencyDigitsInfo
+	readonly curCode = constants.CURRENCY.code
+	readonly curDisplay = constants.CURRENCY.display
+	readonly curDigitsInfo = constants.CURRENCY.digitsInfo
 
 	// Form
 	form = new FormGroup({
@@ -73,7 +73,6 @@ export class DebtFormComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private fb: FormBuilder,
-		private util: GlobalUtil,
 		private profileSvc: ProfileService
 	) { }
 
