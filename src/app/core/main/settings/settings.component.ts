@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
@@ -8,20 +8,15 @@ import { ProfileService } from 'src/app/shared/services/profile/profile.service'
 import { AboutComponent } from 'src/app/components/settings/about/about.component';
 import { ChangePasswordComponent } from 'src/app/components/settings/change-password/change-password.component';
 import { UpdateNameComponent } from 'src/app/components/settings/update-name/update-name.component';
-
-interface SettingsConfig {
-	title: string,
-	description: string,
-	icon: string,
-	handler: () => void
-}
+import { SettingsConfig } from './settings.interface';
+import { QueryKey, RedirectFrom } from 'src/app/shared/services/auth/auth.model';
 
 @Component({
 	selector: 'app-settings',
 	templateUrl: './settings.component.html',
 	styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class SettingsComponent implements AfterViewInit, OnInit, OnDestroy {
 
 	// Data
 	profile: Profile | null = null
@@ -61,6 +56,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	subscription: Subscription = new Subscription()
 
 	constructor(
+		private route: ActivatedRoute,
 		private router: Router,
 		private profileSvc: ProfileService,
 		private authSvc: AuthService
@@ -73,6 +69,14 @@ export class SettingsComponent implements OnInit, OnDestroy {
 				(data) => { this.profile = data }
 			)
 		)
+	}
+
+	ngAfterViewInit(): void {
+		// Toggle if match param
+		const redirectedFrom = this.route.snapshot.queryParamMap.get(QueryKey.REDIRECT)
+		if (redirectedFrom === RedirectFrom.RESET) {
+			this.onChangePassword()
+		}
 	}
 
 	ngOnDestroy(): void {
@@ -99,5 +103,4 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		})
 	}
 	
-
 }
