@@ -2,4 +2,9 @@
 
 ## Project Setup
 
-To be added...
+Install commit msg hook
+
+```bash
+  # install pre-commit if you don't have it
+  pre-commit install --hook-type commit-msg
+```
