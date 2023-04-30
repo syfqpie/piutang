@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
     <div class="min-h-screen w-screen flex flex-col">
 		<pkt-navbar-main></pkt-navbar-main>
 
-		<div class="px-2 md:px-40 py-2.5 dark:text-white overflow-scroll">
+		<div class="px-2 md:px-40 py-2.5 text-neutral-900 dark:text-white overflow-scroll">
 			<router-outlet></router-outlet>
-			<pkt-tab-bar-main></pkt-tab-bar-main>
+			<pkt-tab-bar-main [isShowTitle]="false"></pkt-tab-bar-main>
 		</div>
     </div>
   `,
@@ -19,7 +19,6 @@ export class LayoutMainComponent implements OnInit {
 
 	constructor() { }
 
-	ngOnInit(): void {
-	}
+	ngOnInit(): void { }
 
 }

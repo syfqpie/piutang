@@ -1,1 +1,53 @@
-<p>settings works!</p>
+<div class="p-4 px-2 md:px-0 max-w-xl mx-auto h-[calc(100vh-15rem)] flex flex-col justify-center">
+    <section class="grid grid-cols-1 gap-4 text-center mb-4">
+        <div>
+            <img
+                class="h-32 w-32 mx-auto"
+                src="assets/img/avatars/astronaut-neutral-500.png">
+        </div>
+        <div>
+            <h3
+                class="text-2xl font-medium text-ellipsis
+                text-neutral-700 dark:text-neutral-500">
+                {{ profile?.name }}
+        </h3>
+        </div>
+    </section>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+        <ng-template
+            ngFor
+            let-item
+            [ngForOf]="settings">
+            <button
+                class="flex space-x-3 items-start border
+                rounded-lg shadow-md flex-row md:max-w-xl p-4 text-start
+                cursor-pointer bg-white border-neutral-100 hover:bg-neutral-100
+                focus:outline focus:outline-2 focus:outline-emerald-500
+                dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700
+                dark:focus:outline-emerald-800 dark:focus:border-emerald-500"
+                (click)="item.handler()">
+                <div class="text-center items-start">
+                    <i 
+                        class="{{ item.icon }} transition-colors duration-100 "></i>
+                </div>
+
+                <div class="flex flex-col leading-normal">
+                    <h5 class="mb-2 text-base font-bold tracking-tight text-neutral-900 dark:text-white">
+                        {{ item.title }}
+                    </h5>
+
+                    <p class="text-sm font-medium text-neutral-700 dark:text-neutral-500">
+                        {{ item.description }}
+                    </p>
+                </div>
+            </button>
+        </ng-template>
+    </section>
+
+    <app-update-name></app-update-name>
+
+    <app-change-password></app-change-password>
+
+    <app-about></app-about>
+</div>

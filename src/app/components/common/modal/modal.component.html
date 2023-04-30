@@ -1,0 +1,46 @@
+<div
+    *ngIf="isShow"
+    class="fixed right-0 left-0 bottom-4 md:top-0 md:bottom-0
+    md:inset-0 z-50 w-full h-full justify-center items-end md:items-center
+    align-bottom content-end flex overflow-y-auto overflow-x-hidden">
+    <div
+        class="relative w-full h-auto"
+        [ngClass]="{
+            'max-w-xs': size === 'xs',
+            'max-w-sm': size === 'sm',
+            'max-w-md': size === 'md',
+            'max-w-lg': size === 'lg',
+            'max-w-xl': size === 'xl',
+            'max-w-2xl': size === '2xl',
+            'max-w-3xl': size === '3xl'
+        }">
+        <div class="relative rounded-lg shadow bg-white dark:bg-neutral-800">
+            <ng-container *ngIf="isHeaderEnabled">
+                <div
+                    class="flex items-center justify-between p-5 border-b rounded-t dark:border-neutral-600">
+                    <h3 class="text-xl font-medium text-neutral-900 dark:text-white">
+                        {{ title }}
+                    </h3>
+                    
+                    <button
+                        type="button"
+                        class="text-neutral-400 bg-transparent hover:bg-neutral-200
+                        hover:text-neutral-900 rounded-lg text-sm p-1.5 ml-auto inline-flex
+                        items-center dark:hover:bg-neutral-600 dark:hover:text-white"
+                        (click)="toggle()">
+                        <i class="fa-solid fa-xmark"></i>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+            </ng-container>
+
+            <ng-container [ngTemplateOutlet]="bodyTpl"></ng-container>
+        </div>
+    </div>
+</div> 
+
+
+<div
+    *ngIf="isShow"
+    class="bg-neutral-900 bg-opacity-80 fixed inset-0 z-40">
+</div>

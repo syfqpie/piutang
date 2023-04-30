@@ -7,7 +7,7 @@ import { TabBar } from './tab-bar.types';
     <section
 		id="bottom-navigation"
 		class="block fixed inset-x-0 bottom-0
-		z-10 shadow bg-white dark:bg-gray-900">
+		z-10 shadow bg-white dark:bg-neutral-900">
 		<div
 			id="tabs"
 			class="flex justify-between">
@@ -54,12 +54,12 @@ export class TabBarMainComponent implements OnInit {
 		{
 			title: 'Home',
 			path: ['/home'],
-			icon: 'fa-brands fa-fort-awesome-alt'
+			icon: 'fa-solid fa-coins'
 		},
 		{
 			title: 'Settings',
 			path: ['/settings'],
-			icon: 'fa-solid fa-sliders'
+			icon: 'fa-solid fa-bars-progress'
 		}
 	]
 
